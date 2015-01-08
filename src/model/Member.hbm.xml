@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015/1/6 ?W?? 11:59:56 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="model.Member" table="Member" schema="dbo" catalog="TGC">
+		<id name="memberId" type="int">
+			<column name="memberId" />
+			<generator class="identity" />
+		</id>
+		<property name="username" type="string">
+			<column name="username" length="30" not-null="true" />
+		</property>
+		<property name="pswd" type="binary">
+			<column name="pswd" not-null="true" />
+		</property>
+		<property name="email" type="string">
+			<column name="email" length="50" not-null="true" />
+		</property>
+		<property name="lastname" type="string">
+			<column name="lastname" length="20" not-null="true" />
+		</property>
+		<property name="firstname" type="string">
+			<column name="firstname" length="20" not-null="true" />
+		</property>
+		<property name="gender" type="string">
+			<column name="gender" length="10" />
+		</property>
+		<property name="nickname" type="serializable">
+			<column name="nickname" />
+		</property>
+		<property name="birthday" type="timestamp">
+			<column name="birthday" length="23" />
+		</property>
+		<property name="idCard" type="string">
+			<column name="idCard" length="20" not-null="true" />
+		</property>
+		<property name="joinDate" type="timestamp">
+			<column name="joinDate" length="23" />
+		</property>
+		<property name="phone" type="string">
+			<column name="phone" length="50" />
+		</property>
+		<property name="memberAddress" type="string">
+			<column name="memberAddress" length="100" />
+		</property>
+		<property name="imgFileName" type="string">
+			<column name="imgFileName" length="50" />
+		</property>
+		<property name="memberImage" type="binary">
+			<column name="memberImage" />
+		</property>
+		<property name="isGroupBan" type="java.lang.Boolean">
+			<column name="isGroupBan" />
+		</property>
+		<property name="isCommentBan" type="java.lang.Boolean">
+			<column name="isCommentBan" />
+		</property>
+		<property name="notBanTime" type="timestamp">
+			<column name="notBanTime" length="23" />
+		</property>
+		<property name="banTime" type="timestamp">
+			<column name="banTime" length="23" />
+		</property>
+		<set name="tabuUsernameTablesForToTabuMemberId" table="TabuUsernameTable"
+			inverse="true" lazy="false" fetch="select">
+			<key>
+				<column name="toTabuMemberId" />
+			</key>
+			<one-to-many class="model.TabuUsernameTable" />
+		</set>
+		<set name="tabuUsernameTablesForTabuMemberId" table="TabuUsernameTable"
+			inverse="true" lazy="false" fetch="select">
+			<key>
+				<column name="tabuMemberId" />
+			</key>
+			<one-to-many class="model.TabuUsernameTable" />
+		</set>
+		<set name="storeScores" table="StoreScore" inverse="true" lazy="false"
+			fetch="select">
+			<key>
+				<column name="memberId" not-null="true" />
+			</key>
+			<one-to-many class="model.StoreScore" />
+		</set>
+		<set name="groupRooms" table="GroupRoom" inverse="true" lazy="false"
+			fetch="select">
+			<key>
+				<column name="memberId" />
+			</key>
+			<one-to-many class="model.GroupRoom" />
+		</set>
+		<set name="memberFavoredTypes" table="Member_FavoredType" inverse="true"
+			lazy="false" fetch="select">
+			<key>
+				<column name="memberId" not-null="true" />
+			</key>
+			<one-to-many class="model.Member_FavoredType" />
+		</set>
+	</class>
+</hibernate-mapping>

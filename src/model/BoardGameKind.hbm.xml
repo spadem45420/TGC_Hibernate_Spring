@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015/1/6 ?U?? 07:36:07 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="model.BoardGameKind" table="BoardGameKind" schema="dbo"
+		catalog="TGC">
+		<id name="boardGameSerialNumber" type="int">
+			<column name="boardGameSerialNumber" />
+			<generator class="assigned" />
+		</id>
+		<property name="boardGameStyle" type="string">
+			<column name="boardGameStyle" length="30" />
+		</property>
+		<set name="groupChoiceGameses" table="GroupChoiceGames" inverse="true"
+			lazy="false" fetch="select">
+			<key>
+				<column name="boardGameSerialNumber" />
+			</key>
+			<one-to-many class="model.GroupChoiceGames" />
+		</set>
+		<set name="boardGameses" table="BoardGames" inverse="true" lazy="false"
+			fetch="select">
+			<key>
+				<column name="boardGameSerialNumber" />
+			</key>
+			<one-to-many class="model.BoardGames" />
+		</set>
+	</class>
+</hibernate-mapping>

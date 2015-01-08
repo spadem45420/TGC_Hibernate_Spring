@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015/1/6 ?U?? 07:36:07 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="model.BoardGames" table="BoardGames" schema="dbo"
+		catalog="TGC">
+		<id name="boardGamesId" type="int">
+			<column name="boardGamesId" />
+			<generator class="identity" />
+		</id>
+		<many-to-one name="storeMember" class="model.StoreMember"
+			fetch="select">
+			<column name="storeMemberId" />
+		</many-to-one>
+		<many-to-one name="boardGameKind" class="model.BoardGameKind"
+			fetch="select">
+			<column name="boardGameSerialNumber" />
+		</many-to-one>
+		<property name="storeName" type="string">
+			<column name="storeName" length="30" />
+		</property>
+		<property name="boardGameEnglishName" type="string">
+			<column name="boardGameEnglishName" length="30" />
+		</property>
+		<property name="boardGameName" type="string">
+			<column name="boardGameName" length="50" />
+		</property>
+		<property name="boardGameNumber" type="string">
+			<column name="boardGameNumber" length="10" />
+		</property>
+		<property name="imgFileName" type="string">
+			<column name="imgFileName" length="50" />
+		</property>
+		<property name="boardGameImage" type="binary">
+			<column name="boardGameImage" />
+		</property>
+		<property name="boardGameExplan" type="string">
+			<column name="boardGameExplan" />
+		</property>
+		<set name="boardGamesImages" table="BoardGames_Image" inverse="true"
+			lazy="false" fetch="select">
+			<key>
+				<column name="boardGamesId" />
+			</key>
+			<one-to-many class="model.BoardGames_Image" />
+		</set>
+	</class>
+</hibernate-mapping>

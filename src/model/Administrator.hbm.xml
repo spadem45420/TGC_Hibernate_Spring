@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015/1/6 ?W?? 11:59:56 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="model.Administrator" table="Administrator" schema="dbo"
+		catalog="TGC">
+		<id name="administratorId" type="int">
+			<column name="administratorId" />
+			<generator class="identity" />
+		</id>
+		<property name="adminUsername" type="string">
+			<column name="adminUsername" length="30" />
+		</property>
+		<property name="adminPswd" type="binary">
+			<column name="adminPswd" />
+		</property>
+		<property name="imgFileName" type="string">
+			<column name="imgFileName" length="50" />
+		</property>
+		<property name="adminMemberImage" type="binary">
+			<column name="adminMemberImage" />
+		</property>
+	</class>
+</hibernate-mapping>

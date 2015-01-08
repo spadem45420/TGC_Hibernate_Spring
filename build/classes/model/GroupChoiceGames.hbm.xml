@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015/1/6 ?U?? 07:36:07 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="model.GroupChoiceGames" table="GroupChoiceGames"
+		schema="dbo" catalog="TGC">
+		<id name="choiceGamesSerialNumber" type="int">
+			<column name="choiceGamesSerialNumber" />
+			<generator class="identity" />
+		</id>
+		<many-to-one name="groupRoom" class="model.GroupRoom"
+			fetch="select">
+			<column name="groupSerialNumber" />
+		</many-to-one>
+		<many-to-one name="boardGameKind" class="model.BoardGameKind"
+			fetch="select">
+			<column name="boardGameSerialNumber" />
+		</many-to-one>
+		<property name="boardGameName" type="string">
+			<column name="boardGameName" length="50" />
+		</property>
+	</class>
+</hibernate-mapping>
