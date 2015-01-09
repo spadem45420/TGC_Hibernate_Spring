@@ -3,7 +3,7 @@ package model;
 import java.util.List;
 
 public interface Joiner_InfoDAO_Interface {
-	public abstract Joiner_Info findByPrimeKey(String groupSerialNumber);
+	public abstract Joiner_Info findByPrimeKey(Integer joinerInfoSerialNumber);
 
 	public abstract List<Joiner_Info> getAll();
 
@@ -13,5 +13,7 @@ public interface Joiner_InfoDAO_Interface {
 
 	public abstract void delete(Integer joiner_InfoSerialNumber);
 
-	public abstract List<Joiner_Info> Count(Integer i);
+	public abstract List<Joiner_Info> count(Integer i);
+
+	public abstract List<StoreInformation> getStoreByName(String roomName);
 }
