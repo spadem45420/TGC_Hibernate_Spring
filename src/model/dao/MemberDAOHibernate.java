@@ -160,12 +160,12 @@ public class MemberDAOHibernate implements MemberDAO_Interface {
 		// System.out.println(vo.getFavoredType());
 		// }
 		// 查詢多筆
-		List<Member> beans = dao.getAll();
-		for (Member vo : beans) {
-			System.out.println(vo.getMemberId());
-			System.out.println(vo.getUsername());
-			System.out.println(vo.getNickname());
-		}
+//		List<Member> beans = dao.getAll();
+//		for (Member vo : beans) {
+//			System.out.println(vo.getMemberId());
+//			System.out.println(vo.getUsername());
+//			System.out.println(vo.getNickname());
+//		}
 	}
 
 	@Override

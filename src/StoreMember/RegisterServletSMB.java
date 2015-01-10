@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -19,7 +20,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import model.StoreMember;
+import model.StoreMemberDAO_Interface;
 import initialize.*;
 import StoreMember.StoreMemberService;
 
@@ -133,11 +138,14 @@ public class RegisterServletSMB extends HttpServlet {
 
 			// 4.1.檢查帳號是否已經存在
 			// 4.2.儲存會員的資料
-			StoreMemberService service = new StoreMemberService();
-			StoreMember bean = new StoreMember();
-			if (service.select(bean) != null) {
+			ApplicationContext context = new ClassPathXmlApplicationContext(
+					"model-config1-DriverManagerDataSource.xml");
+			StoreMemberDAO_Interface dao = (StoreMemberDAO_Interface) context
+					.getBean("StoreMemberDAO");
+			if (dao.findByUsername(storeUsername) != null) {
 				errorMsg.put("errorUserNameDup", "此帳號已存在，請換個帳號");
 			} else {
+				StoreMember bean = new StoreMember();
 				bean = new StoreMember();
 				bean.setStoreUsername(storeUsername);
 				bean.setStorePswd(storePswd.getBytes());
@@ -163,7 +171,8 @@ public class RegisterServletSMB extends HttpServlet {
 				}
 				bean.setStoreImage(storeImage);
 				// 將MemberBean bean立即寫入Database
-				String result = service.register(bean);
+				StoreMemberService service = new StoreMemberService();
+				List<StoreMember> result = service.register(bean);
 				if (result != null) {
 					msgOK.put("InsertOK",
 							"<Font color='red'>新增成功，請開始使用本系統</Font>");

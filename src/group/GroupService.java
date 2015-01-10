@@ -28,15 +28,26 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class GroupService {
 	
-	private static Joiner_InfoDAO_Interface dao = null;
-	
-//	public Joiner_InfoDAO_Interface getDao() {
+//	public Joiner_InfoDAO_Interface getDao() {//未更新
 //		return dao;
 //	}
 //
-//	public void setDao(Joiner_InfoDAO_Interface dao) {
+//	public void setDao(Joiner_InfoDAO_Interface dao) {//未更新
 //		this.dao = dao;
 //	}
+	
+	private GroupRoomDAO_Interface GRdao = null;
+	private Joiner_InfoDAO_Interface JIdao = null;
+	
+	public GroupService(){
+		ApplicationContext context = new ClassPathXmlApplicationContext(
+				"model-config1-DriverManagerDataSource.xml");
+		GRdao = (GroupRoomDAO_Interface) context
+				.getBean("GroupRoomDAO");
+		JIdao = (Joiner_InfoDAO_Interface) context
+				.getBean("Joiner_InfoDAO");
+		
+	}
 
 	private static boolean timeComparer(Date date1,Date date2){//比較時間大小
 		if(date1.after(date2)){
@@ -45,26 +56,21 @@ public class GroupService {
 		return false;
 	}
 	
-	private static int RoomPeopleSum(GroupRoom bean){//算出該時間該家店的總人數
-		ApplicationContext context = new ClassPathXmlApplicationContext(
-				"model-config1-DriverManagerDataSource.xml");
-		GroupRoomDAO_Interface dao = (GroupRoomDAO_Interface) context
-				.getBean("GroupRoomDAO");
-		Joiner_InfoDAO_Interface dao2 = (Joiner_InfoDAO_Interface) context
-				.getBean("Joiner_InfoDAO");
+	private int RoomPeopleSum(GroupRoom bean){//算出該時間該家店的總人數
+		
 		Date start = bean.getReserveGroupStartTime();//預約開始時間
 		Date end = bean.getReserveGroupEndTime();//預約結束時間
 		int sum = 0;
 		
 		
-		List<GroupRoom> list = dao.getAll();
+		List<GroupRoom> list = GRdao.getAll();
 		for(GroupRoom vo : list){//用foreach撈所有的房間
 			Date s1 = vo.getReserveGroupStartTime();
 			Date e1 = vo.getReserveGroupEndTime();
 			if(GroupService.timeComparer(end, s1)){ 
 				if(GroupService.timeComparer(e1, start)){
 					int RoomNumber = vo.getGroupSerialNumber();//取出撈到的房間號碼
-					sum = sum + dao2.count(RoomNumber).size();
+					sum = sum + JIdao.count(RoomNumber).size();
 				}
 			}
 			
@@ -73,18 +79,15 @@ public class GroupService {
 		return sum;
 	}
 	
-	private static boolean MayICreate(GroupRoom bean){//是否可以開團
-		ApplicationContext context = new ClassPathXmlApplicationContext(
-				"model-config1-DriverManagerDataSource.xml");
-		Joiner_InfoDAO_Interface dao = (Joiner_InfoDAO_Interface) context
-				.getBean("Joiner_InfoDAO");
+	private boolean MayICreate(GroupRoom bean){//是否可以開團
+		GroupService GS = new GroupService();
 		int RoomPeopleSum = 0;
 		int StoreUpper = 0;
 		String StoreName = bean.getStoreName();
-		List<StoreInformation> list = dao.getStoreByName(StoreName);
+		List<StoreInformation> list = JIdao.getStoreByName(StoreName);
 		for(StoreInformation store : list){
 			StoreUpper = store.getGroupUpperLimit();
-			RoomPeopleSum = GroupService.RoomPeopleSum(bean);
+			RoomPeopleSum = GS.RoomPeopleSum(bean);
 			if(StoreUpper-RoomPeopleSum > 0){
 				return true;
 			}
@@ -92,86 +95,68 @@ public class GroupService {
 		return false;
 	}
 	
-	private static List<GroupRoom> createGroupRoom(GroupRoom bean){//創立房間
-		ApplicationContext context = new ClassPathXmlApplicationContext(
-				"model-config1-DriverManagerDataSource.xml");
-		GroupRoomDAO_Interface dao = (GroupRoomDAO_Interface) context
-				.getBean("GroupRoomDAO");
+	private List<GroupRoom> createGroupRoom(GroupRoom bean){//創立房間
+		GroupService GS = new GroupService();
 		List<GroupRoom> room = new ArrayList<GroupRoom>();
-		if(GroupService.MayICreate(bean)){
-			dao.insert(bean);
+		if(GS.MayICreate(bean)){
+			GRdao.insert(bean);
 			room.add(bean);
 			return room;
 		}
 		return null;
 	}
 	
-	private static List<GroupRoom> updateGroupRoom(GroupRoom bean){//更新房間
-		ApplicationContext context = new ClassPathXmlApplicationContext(
-				"model-config1-DriverManagerDataSource.xml");
-		GroupRoomDAO_Interface dao = (GroupRoomDAO_Interface) context
-				.getBean("GroupRoomDAO");
+	private List<GroupRoom> updateGroupRoom(GroupRoom bean){//更新房間
 		GroupRoom key = null;
 		List<GroupRoom> room = new ArrayList<GroupRoom>();
-		key = dao.findByPrimeKey(bean.getGroupSerialNumber());
+		key = GRdao.findByPrimeKey(bean.getGroupSerialNumber());
 		if(key != null){
-			dao.update(bean);
+			GRdao.update(bean);
 			room.add(bean);
 		}
 		return null;
 	}
 	
-	private static List<GroupRoom> deleteGroupRoom(int groupSerialNumber){//刪除房間
-		ApplicationContext context = new ClassPathXmlApplicationContext(
-				"model-config1-DriverManagerDataSource.xml");
-		GroupRoomDAO_Interface dao = (GroupRoomDAO_Interface) context
-				.getBean("GroupRoomDAO");
-		GroupRoom room = dao.findByPrimeKey(groupSerialNumber);
+	private List<GroupRoom> deleteGroupRoom(int groupSerialNumber){//刪除房間
+		GroupService GS = new GroupService();
+		GroupRoom room = GRdao.findByPrimeKey(groupSerialNumber);
 		int state = -100;//初始值
 		state = room.getRoomState();//取得房間狀態
 		if(state==0){//如果為一般開團狀態
-			dao.delete(groupSerialNumber);
+			GRdao.delete(groupSerialNumber);
 		}
 		else if(state==1){//如果為已開團成功狀態
 			room.setRoomState(-1);
-			GroupService.updateGroupRoom(room);
+			GS.updateGroupRoom(room);
 		}
 		return null;
 	}
 	
-	private static boolean addGroupRoom(Joiner_Info bean){//加入房間
-		ApplicationContext context = new ClassPathXmlApplicationContext(
-				"model-config1-DriverManagerDataSource.xml");
-		Joiner_InfoDAO_Interface dao = (Joiner_InfoDAO_Interface) context
-				.getBean("Joiner_InfoDAO");
-		GroupRoomDAO_Interface dao2 = (GroupRoomDAO_Interface) context
-				.getBean("GroupRoomDAO");
+	private boolean addGroupRoom(Joiner_Info bean){//加入房間
 		int groupSerialNumber = bean.getGroupRoom().getGroupSerialNumber();//取得房間的號碼
-		GroupRoom room = dao2.findByPrimeKey(groupSerialNumber);//取得要加入的房間
-		int sum = dao.count(groupSerialNumber).size();//取得目前房間人數
+		GroupRoom room = GRdao.findByPrimeKey(groupSerialNumber);//取得要加入的房間
+		int sum = JIdao.count(groupSerialNumber).size();//取得目前房間人數
 		int upper = room.getGroupUpperLimit();//取得房間上限人數
 		
 		if(sum < upper && bean != null){
-			dao.insert(bean);
+			JIdao.insert(bean);
 			return true;
 		}
 		return false;
 	}
 	
-	private static boolean exitGroupRoom(Joiner_Info bean){//退出房間
-		ApplicationContext context = new ClassPathXmlApplicationContext(
-				"model-config1-DriverManagerDataSource.xml");
-		Joiner_InfoDAO_Interface dao = (Joiner_InfoDAO_Interface) context
-				.getBean("Joiner_InfoDAO");
+	private boolean exitGroupRoom(Joiner_Info bean){//退出房間
 		int JoinerNumber = bean.getJoinerInfoSerialNumber();
-		if(bean != null && dao.findByPrimeKey(JoinerNumber) != null){
-			dao.delete(JoinerNumber);
+		if(bean != null && JIdao.findByPrimeKey(JoinerNumber) != null){
+			JIdao.delete(JoinerNumber);
 			return true;
 		}
 		return false;
 	}
 	
 	public static void main(String[] args){
+		GroupService GroupService = new GroupService();
+		
 		//time test
 //		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 //		try {
