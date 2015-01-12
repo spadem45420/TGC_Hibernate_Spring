@@ -3,12 +3,15 @@ package model.dao;
 import java.util.List;
 
 import model.Member;
-import model.MemberDAO_Interface;
 import model.StoreInformation;
-import model.StoreInformationDAO_Interface;
 import model.StoreScore;
-import model.StoreScoreDAO_Interface;
+import model.Interface.MemberDAO_Interface;
+import model.Interface.StoreInformationDAO_Interface;
+import model.Interface.StoreMemberDAO_Interface;
+import model.Interface.StoreScoreDAO_Interface;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
 public class StoreScoreDAOHibernate implements StoreScoreDAO_Interface {
@@ -19,10 +22,17 @@ public class StoreScoreDAOHibernate implements StoreScoreDAO_Interface {
 	}
 
 	@Override
-	public StoreScore findByPrimeKey(Integer storeId) {
+	public StoreScore findByPrimeKey(Integer storeScoreId) {
 		StoreScore storeScore = (StoreScore) hibernateTemplate.get(
-				StoreScore.class, storeId);
+				StoreScore.class, storeScoreId);
 		return storeScore;
+	}
+	
+	private static final String GET_BY_STOREID = "from StoreScore where storeId = ?";
+	
+	public List<StoreScore> findByStoreId(Integer storeId){
+		List<StoreScore> list = hibernateTemplate.find(GET_BY_STOREID, storeId);
+		return list;
 	}
 
 	private static final String GET_ALL_STMT = "from StoreScore order by storeId";
@@ -51,12 +61,18 @@ public class StoreScoreDAOHibernate implements StoreScoreDAO_Interface {
 	}
 
 	public static void main(String[] args) {
-		StoreScoreDAO_Interface dao = new StoreScoreDAOHibernate();
+		// StoreScoreDAO_Interface dao = new StoreScoreDAOHibernate();
+		ApplicationContext context = new ClassPathXmlApplicationContext(
+				"model-config1-DriverManagerDataSource.xml");
+		MemberDAO_Interface mdao = (MemberDAO_Interface) context
+				.getBean("MemberDAO");
+		StoreInformationDAO_Interface sidao = (StoreInformationDAO_Interface) context
+				.getBean("StoreInformationDAO");
+		StoreScoreDAO_Interface dao = (StoreScoreDAO_Interface) context
+				.getBean("StoreScoreDAO");
 		// 新增
 		StoreScore bean1 = new StoreScore();
-		MemberDAO_Interface mdao = new MemberDAOHibernate();
 		Member mbean1 = mdao.findByPrimeKey(1);
-		StoreInformationDAO_Interface sidao = new StoreInformationDAOHibernate();
 		StoreInformation sibean1 = sidao.findByPrimeKey(1);
 		bean1.setStoreInformation(sibean1);
 		bean1.setMember(mbean1);

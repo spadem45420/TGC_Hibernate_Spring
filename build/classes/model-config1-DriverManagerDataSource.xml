@@ -13,8 +13,12 @@ http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+		<!-- 本機的MS SQL -->
 		<property name="url"
 			value="jdbc:sqlserver://localhost:1433;DatabaseName=TGC" />
+		<!-- 虛擬機器裡的MS SQL -->
+		<!-- <property name="url" -->
+		<!-- value="jdbc:sqlserver://192.168.111.128:1433;DatabaseName=TGC" /> -->
 		<property name="username" value="sa" />
 		<property name="password" value="123456" />
 	</bean>
@@ -145,104 +149,104 @@ http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
 	<aop:config>
 		<aop:pointcut id="AdministratorDAOPointcut"
-			expression="execution(* model.AdministratorDAO_Interface.*(..))" />
+			expression="execution(* model.Interface.AdministratorDAO_Interface.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="AdministratorDAOPointcut" />
 	</aop:config>
 
 	<aop:config>
 		<aop:pointcut id="BoardGameKindDAOPointcut"
-			expression="execution(* model.BoardGameKindDAO_Interface.*(..))" />
+			expression="execution(* model.Interface.BoardGameKindDAO_Interface.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="BoardGameKindDAOPointcut" />
 	</aop:config>
 
 	<aop:config>
 		<aop:pointcut id="BoardGamesDAOPointcut"
-			expression="execution(* model.BoardGamesDAO_Interface.*(..))" />
+			expression="execution(* model.Interface.BoardGamesDAO_Interface.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="BoardGamesDAOPointcut" />
 	</aop:config>
 
 	<aop:config>
 		<aop:pointcut id="BoardGames_ImageDAOPointcut"
-			expression="execution(* model.BoardGames_ImageDAO_Interface.*(..))" />
+			expression="execution(* model.Interface.BoardGames_ImageDAO_Interface.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="BoardGames_ImageDAOPointcut" />
 	</aop:config>
 
 	<aop:config>
 		<aop:pointcut id="GroupChoiceGamesDAOPointcut"
-			expression="execution(* model.GroupChoiceGamesDAO_Interface.*(..))" />
+			expression="execution(* model.Interface.GroupChoiceGamesDAO_Interface.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="GroupChoiceGamesDAOPointcut" />
 	</aop:config>
 
 	<aop:config>
 		<aop:pointcut id="GroupRoomDAOPointcut"
-			expression="execution(* model.GroupRoomDAO_Interface.*(..))" />
+			expression="execution(* model.Interface.GroupRoomDAO_Interface.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="GroupRoomDAOPointcut" />
 	</aop:config>
 
 	<aop:config>
 		<aop:pointcut id="GroupRoom_InfoDAOPointcut"
-			expression="execution(* model.GroupRoom_InfoDAO_Interface.*(..))" />
+			expression="execution(* model.Interface.GroupRoom_InfoDAO_Interface.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="GroupRoom_InfoDAOPointcut" />
 	</aop:config>
 
 	<aop:config>
 		<aop:pointcut id="GroupRoom_MessageDAOPointcut"
-			expression="execution(* model.GroupRoom_MessageDAO_Interface.*(..))" />
+			expression="execution(* model.Interface.GroupRoom_MessageDAO_Interface.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="GroupRoom_MessageDAOPointcut" />
 	</aop:config>
 
 	<aop:config>
 		<aop:pointcut id="Joiner_InfoDAOPointcut"
-			expression="execution(* model.Joiner_InfoDAO_Interface.*(..))" />
+			expression="execution(* model.Interface.Joiner_InfoDAO_Interface.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="Joiner_InfoDAOPointcut" />
 	</aop:config>
 
 	<aop:config>
 		<aop:pointcut id="MemberDAOPointcut"
-			expression="execution(* model.MemberDAO_Interface.*(..))" />
+			expression="execution(* model.Interface.MemberDAO_Interface.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="MemberDAOPointcut" />
 	</aop:config>
 
 	<aop:config>
 		<aop:pointcut id="Member_FavoredTypeDAOPointcut"
-			expression="execution(* model.Member_FavoredTypeDAO_Interface.*(..))" />
+			expression="execution(* model.Interface.Member_FavoredTypeDAO_Interface.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="Member_FavoredTypeDAOPointcut" />
 	</aop:config>
 
 	<aop:config>
 		<aop:pointcut id="RentalTimeDAOPointcut"
-			expression="execution(* model.RentalTimeDAO_Interface.*(..))" />
+			expression="execution(* model.Interface.RentalTimeDAO_Interface.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="RentalTimeDAOPointcut" />
 	</aop:config>
 
 	<aop:config>
 		<aop:pointcut id="StoreInformationDAOPointcut"
-			expression="execution(* model.StoreInformationDAO_Interface.*(..))" />
+			expression="execution(* model.Interface.StoreInformationDAO_Interface.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="StoreInformationDAOPointcut" />
 	</aop:config>
 
 	<aop:config>
 		<aop:pointcut id="StoreInformation_ImageDAOPointcut"
-			expression="execution(* model.StoreInformation_ImageDAO_Interface.*(..))" />
+			expression="execution(* model.Interface.StoreInformation_ImageDAO_Interface.*(..))" />
 		<aop:advisor advice-ref="txAdvice"
 			pointcut-ref="StoreInformation_ImageDAOPointcut" />
 	</aop:config>
 
 	<aop:config>
 		<aop:pointcut id="StoreMemberDAOPointcut"
-			expression="execution(* model.StoreMemberDAO_Interface.*(..))" />
+			expression="execution(* model.Interface.StoreMemberDAO_Interface.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="StoreMemberDAOPointcut" />
 	</aop:config>
 
 	<aop:config>
 		<aop:pointcut id="StoreScoreDAOPointcut"
-			expression="execution(* model.StoreScoreDAO_Interface.*(..))" />
+			expression="execution(* model.Interface.StoreScoreDAO_Interface.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="StoreScoreDAOPointcut" />
 	</aop:config>
 
 	<aop:config>
 		<aop:pointcut id="TabuUsernameTableDAOPointcut"
-			expression="execution(* model.TabuUsernameTableDAO_Interface.*(..))" />
+			expression="execution(* model.Interface.TabuUsernameTableDAO_Interface.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="TabuUsernameTableDAOPointcut" />
 	</aop:config>
 </beans>

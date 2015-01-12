@@ -3,7 +3,7 @@ package model.dao;
 import java.util.List;
 
 import model.BoardGames_Image;
-import model.BoardGames_ImageDAO_Interface;
+import model.Interface.BoardGames_ImageDAO_Interface;
 
 import org.springframework.orm.hibernate3.HibernateTemplate;
 

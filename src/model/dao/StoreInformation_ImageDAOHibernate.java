@@ -7,11 +7,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import model.BoardGameKindDAO_Interface;
 import model.StoreInformation;
-import model.StoreInformationDAO_Interface;
 import model.StoreInformation_Image;
-import model.StoreInformation_ImageDAO_Interface;
+import model.Interface.BoardGameKindDAO_Interface;
+import model.Interface.StoreInformationDAO_Interface;
+import model.Interface.StoreInformation_ImageDAO_Interface;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

@@ -3,7 +3,7 @@ package model.dao;
 import java.util.List;
 
 import model.TabuUsernameTable;
-import model.TabuUsernameTableDAO_Interface;
+import model.Interface.TabuUsernameTableDAO_Interface;
 
 import org.springframework.orm.hibernate3.HibernateTemplate;
 

@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.Set;
 
 import model.StoreInformation;
-import model.StoreInformationDAO_Interface;
 import model.StoreInformation_Image;
 import model.StoreMember;
-import model.StoreMemberDAO_Interface;
+import model.Interface.StoreInformationDAO_Interface;
+import model.Interface.StoreMemberDAO_Interface;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -31,6 +31,15 @@ public class StoreInformationDAOHibernate implements
 		StoreInformation storeInformation = (StoreInformation) hibernateTemplate
 				.get(StoreInformation.class, storeId);
 		return storeInformation;
+	}
+
+	@Override
+	public List<StoreInformation> findByStoreName(String storeName) {
+		StoreInformation storeInformation = new StoreInformation();
+		storeInformation.setStoreName(storeName);
+		List<StoreInformation> list = hibernateTemplate
+				.findByExample(storeInformation);
+		return list;
 	}
 
 	private static final String GET_ALL_STMT = "from StoreInformation order by storeId";
@@ -96,7 +105,7 @@ public class StoreInformationDAOHibernate implements
 		bean1.setGroupUpperLimit(50);
 		dao.insert(bean1);
 		// 修改
-		// StoreInformationVO bean3 = new StoreInformationVO();
+		// StoreInformation bean3 = new StoreInformation();
 		// SMdao = new StoreMemberDAOHibernate();
 		// smbean1 = SMdao.findByPrimeKey(1);
 		// bean3.setStoreMember(smbean1);
@@ -107,8 +116,12 @@ public class StoreInformationDAOHibernate implements
 		// 刪除
 		// dao.delete(1);
 		// 查詢單筆
-		// StoreInformationVO b1 = dao.findByPrimeKey(1);
+		// StoreInformation b1 = dao.findByPrimeKey(1);
 		// System.out.println(b1.getStoreName());
+		List<StoreInformation> b2 = dao.findByStoreName("瘋桌遊-益智遊戲專賣店(汐止店)");
+		for (StoreInformation vo : b2) {
+			System.out.println(vo.getStoreName());
+		}
 		// 查詢多筆
 		List<StoreInformation> beans = dao.getAll();
 		for (StoreInformation vo : beans) {

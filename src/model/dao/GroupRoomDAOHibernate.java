@@ -8,23 +8,24 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Set;
 
-import model.BoardGamesDAO_Interface;
 import model.GroupChoiceGames;
 import model.GroupRoom;
-import model.GroupRoomDAO_Interface;
 import model.GroupRoom_Info;
 import model.GroupRoom_Message;
 import model.Joiner_Info;
 import model.Member;
-import model.MemberDAO_Interface;
 import model.StoreInformation;
-import model.StoreInformationDAO_Interface;
 import model.StoreMember;
-import model.StoreMemberDAO_Interface;
+import model.Interface.GroupRoomDAO_Interface;
+import model.Interface.MemberDAO_Interface;
+import model.Interface.StoreInformationDAO_Interface;
+import model.Interface.StoreMemberDAO_Interface;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.orm.hibernate3.HibernateTemplate;
+
+import sun.print.resources.serviceui;
 
 public class GroupRoomDAOHibernate implements GroupRoomDAO_Interface {
 	private HibernateTemplate hibernateTemplate;
@@ -38,6 +39,24 @@ public class GroupRoomDAOHibernate implements GroupRoomDAO_Interface {
 		GroupRoom groupRoom = (GroupRoom) hibernateTemplate.get(
 				GroupRoom.class, groupSerialNumber);
 		return groupRoom;
+	}
+
+	@Override
+	public List<GroupRoom> findByGroupRoomName(String groupRoomName) {
+		GroupRoom groupRoom = new GroupRoom();
+		groupRoom.setGroupRoomName(groupRoomName);
+		List<GroupRoom> list = hibernateTemplate.findByExample(groupRoom);
+		return list;
+	}
+
+	private static final String GET_BY_UNKNOWN = "from GroupRoom where storeName like ? or groupRoomName like ? order by groupSerialNumber";
+
+	@Override
+	public List<GroupRoom> findByUnknown(String unknown) {
+		String[] unknownQuery = {"%" + unknown + "%","%" + unknown + "%"};
+		List<GroupRoom> list = hibernateTemplate.find(GET_BY_UNKNOWN,
+				unknownQuery);
+		return list;
 	}
 
 	private static final String GET_ALL_STMT = "from GroupRoom order by groupSerialNumber";
@@ -84,19 +103,18 @@ public class GroupRoomDAOHibernate implements GroupRoomDAO_Interface {
 		StoreInformationDAO_Interface sidao = (StoreInformationDAO_Interface) context
 				.getBean("StoreInformationDAO");
 		StoreInformation sibean = sidao.findByPrimeKey(1);
-		bean1.setGroupSerialNumber(3);
 		bean1.setStoreName(sibean.getStoreName());
 		bean1.setGroupStartTime(java.sql.Date.valueOf("2014-12-24"));
 		bean1.setGroupEndTime(java.sql.Date.valueOf("2014-12-31"));
-		bean1.setGroupRoomName("一起打桌遊八3!");
+		bean1.setGroupRoomName("一起打桌遊八!");
 		bean1.setGroupSuggestNumber("6-15");
 		bean1.setGroupLowerLimit(6);
 		bean1.setGroupUpperLimit(15);
 		bean1.setGroupGameTime(java.sql.Time.valueOf("03:00:00"));
 		bean1.setReserveGroupStartTime(java.sql.Timestamp
-				.valueOf("2015-1-1 11:00:00"));
-		bean1.setReserveGroupEndTime(java.sql.Timestamp
 				.valueOf("2015-1-1 13:00:00"));
+		bean1.setReserveGroupEndTime(java.sql.Timestamp
+				.valueOf("2015-1-1 16:00:00"));
 		bean1.setRoomState(0);
 		String filename1 = "boardgames.jpg";
 		bean1.setImgFileName(filename1);

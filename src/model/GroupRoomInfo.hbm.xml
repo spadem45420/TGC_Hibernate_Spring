@@ -1,23 +1,21 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2015/1/6 ?W?? 11:59:56 by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated 2015/1/12 ?U?? 12:51:08 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-	<class name="model.GroupRoom_Info" table="GroupRoom_Info" schema="dbo"
-		catalog="TGC">
-		<id name="groupPictureSerialNumber" type="int">
-			<column name="groupPictureSerialNumber" />
-			<generator class="identity" />
-		</id>
-		<many-to-one name="groupRoom" class="model.GroupRoom"
-			fetch="select">
-			<column name="groupSerialNumber" />
-		</many-to-one>
-		<property name="groupPicture" type="binary">
-			<column name="groupPicture" />
-		</property>
-		<property name="imgFileName" type="string">
-			<column name="imgFileName" length="50" />
-		</property>
-	</class>
+    <class name="model.GroupRoom_Info" table="GroupRoom_Info">
+        <id name="groupPictureSerialNumber" type="int">
+            <column name="groupPictureSerialNumber" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="groupRoom" class="model.GroupRoom" fetch="select">
+            <column name="groupSerialNumber" />
+        </many-to-one>
+        <property name="groupPicture" type="binary">
+            <column name="groupPicture" />
+        </property>
+        <property name="imgFileName" type="string">
+            <column name="imgFileName" length="50" />
+        </property>
+    </class>
 </hibernate-mapping>

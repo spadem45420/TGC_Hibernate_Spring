@@ -1,87 +1,81 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2015/1/6 ?W?? 11:59:56 by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated 2015/1/12 ?U?? 12:51:08 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-	<class name="model.GroupRoom" table="GroupRoom" schema="dbo"
-		catalog="TGC">
-		<id name="groupSerialNumber" type="int">
-			<column name="groupSerialNumber" />
-			<generator class="identity" />
-		</id>
-		<many-to-one name="storeMember" class="model.StoreMember"
-			fetch="select">
-			<column name="storeMemberId" />
-		</many-to-one>
-		<many-to-one name="member" class="model.Member" fetch="select">
-			<column name="memberId" />
-		</many-to-one>
-		<property name="storeName" type="string">
-			<column name="storeName" length="30" />
-		</property>
-		<property name="groupStartTime" type="timestamp">
-			<column name="groupStartTime" length="23" />
-		</property>
-		<property name="groupEndTime" type="timestamp">
-			<column name="groupEndTime" length="23" />
-		</property>
-		<property name="groupRoomName" type="string">
-			<column name="groupRoomName" length="20" />
-		</property>
-		<property name="groupSuggestNumber" type="string">
-			<column name="groupSuggestNumber" />
-		</property>
-		<property name="groupLowerLimit" type="java.lang.Integer">
-			<column name="groupLowerLimit" />
-		</property>
-		<property name="groupUpperLimit" type="java.lang.Integer">
-			<column name="groupUpperLimit" />
-		</property>
-		<property name="groupGameTime" type="timestamp">
-			<column name="groupGameTime" length="23" />
-		</property>
-		<property name="reserveGroupStartTime" type="timestamp">
-			<column name="reserveGroupStartTime" length="23" />
-		</property>
-		<property name="reserveGroupEndTime" type="timestamp">
-			<column name="reserveGroupEndTime" length="23" />
-		</property>
-		<property name="roomState" type="java.lang.Integer">
-			<column name="roomState" />
-		</property>
-		<property name="imgFileName" type="string">
-			<column name="imgFileName" length="50" />
-		</property>
-		<property name="privateGroupImage" type="binary">
-			<column name="privateGroupImage" />
-		</property>
-		<set name="groupRoomInfos" table="GroupRoom_Info" inverse="true"
-			lazy="false" fetch="select">
-			<key>
-				<column name="groupSerialNumber" />
-			</key>
-			<one-to-many class="model.GroupRoom_Info" />
-		</set>
-		<set name="joinerInfos" table="Joiner_Info" inverse="true" lazy="false" cascade="delete"
-			fetch="select">
-			<key>
-				<column name="groupSerialNumber" />
-			</key>
-			<one-to-many class="model.Joiner_Info" />
-		</set>
-		<set name="groupRoomMessages" table="GroupRoom_Message" inverse="true"
-			lazy="false" fetch="select">
-			<key>
-				<column name="groupSerialNumber" />
-			</key>
-			<one-to-many class="model.GroupRoom_Message" />
-		</set>
-		<set name="groupChoiceGameses" table="GroupChoiceGames" inverse="true"
-			lazy="false" fetch="select">
-			<key>
-				<column name="groupSerialNumber" />
-			</key>
-			<one-to-many class="model.GroupChoiceGames" />
-		</set>
-	</class>
+    <class name="model.GroupRoom" table="GroupRoom">
+        <id name="groupSerialNumber" type="int">
+            <column name="groupSerialNumber" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="storeMember" class="model.StoreMember" fetch="select">
+            <column name="storeMemberId" not-null="true" />
+        </many-to-one>
+        <many-to-one name="member" class="model.Member" fetch="select">
+            <column name="memberId" not-null="true" />
+        </many-to-one>
+        <property name="storeName" type="string">
+            <column name="storeName" length="30" not-null="true" />
+        </property>
+        <property name="groupStartTime" type="timestamp">
+            <column name="groupStartTime" length="23" not-null="true" />
+        </property>
+        <property name="groupEndTime" type="timestamp">
+            <column name="groupEndTime" length="23" not-null="true" />
+        </property>
+        <property name="groupRoomName" type="string">
+            <column name="groupRoomName" length="20" not-null="true" />
+        </property>
+        <property name="groupSuggestNumber" type="string">
+            <column name="groupSuggestNumber" length="20" not-null="true" />
+        </property>
+        <property name="groupLowerLimit" type="int">
+            <column name="groupLowerLimit" not-null="true" />
+        </property>
+        <property name="groupUpperLimit" type="int">
+            <column name="groupUpperLimit" not-null="true" />
+        </property>
+        <property name="groupGameTime" type="timestamp">
+            <column name="groupGameTime" length="23" not-null="true" />
+        </property>
+        <property name="reserveGroupStartTime" type="timestamp">
+            <column name="reserveGroupStartTime" length="23" not-null="true" />
+        </property>
+        <property name="reserveGroupEndTime" type="timestamp">
+            <column name="reserveGroupEndTime" length="23" not-null="true" />
+        </property>
+        <property name="roomState" type="int">
+            <column name="roomState" not-null="true" />
+        </property>
+        <property name="imgFileName" type="string">
+            <column name="imgFileName" length="50" />
+        </property>
+        <property name="privateGroupImage" type="binary">
+            <column name="privateGroupImage" />
+        </property>
+        <set name="groupRoomInfos" table="GroupRoom_Info" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="groupSerialNumber" />
+            </key>
+            <one-to-many class="model.GroupRoom_Info" />
+        </set>
+        <set name="joinerInfos" table="Joiner_Info" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="groupSerialNumber" />
+            </key>
+            <one-to-many class="model.Joiner_Info" />
+        </set>
+        <set name="groupRoomMessages" table="GroupRoom_Message" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="groupSerialNumber" />
+            </key>
+            <one-to-many class="model.GroupRoom_Message" />
+        </set>
+        <set name="groupChoiceGameses" table="GroupChoiceGames" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="groupSerialNumber" />
+            </key>
+            <one-to-many class="model.GroupChoiceGames" />
+        </set>
+    </class>
 </hibernate-mapping>

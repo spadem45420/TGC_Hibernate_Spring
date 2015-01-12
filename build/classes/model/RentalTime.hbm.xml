@@ -1,59 +1,57 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2015/1/6 ?W?? 11:59:56 by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated 2015/1/12 ?U?? 12:51:08 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-	<class name="model.RentalTime" table="RentalTime" schema="dbo"
-		catalog="TGC">
-		<id name="storeId" type="int">
-			<column name="storeId" />
-			<generator class="foreign">
-				<param name="property">storeInformation</param>
-			</generator>
-		</id>
-		<one-to-one name="storeInformation" class="model.StoreInformation"
-			constrained="true"></one-to-one>
-		<property name="monStart" type="timestamp">
-			<column name="monStart" length="23" />
-		</property>
-		<property name="monEnd" type="timestamp">
-			<column name="monEnd" length="23" />
-		</property>
-		<property name="tueStart" type="timestamp">
-			<column name="tueStart" length="23" />
-		</property>
-		<property name="tueEnd" type="timestamp">
-			<column name="tueEnd" length="23" />
-		</property>
-		<property name="wedStart" type="timestamp">
-			<column name="wedStart" length="23" />
-		</property>
-		<property name="wedEnd" type="timestamp">
-			<column name="wedEnd" length="23" />
-		</property>
-		<property name="thuStart" type="timestamp">
-			<column name="thuStart" length="23" />
-		</property>
-		<property name="thuEnd" type="timestamp">
-			<column name="thuEnd" length="23" />
-		</property>
-		<property name="friStart" type="timestamp">
-			<column name="friStart" length="23" />
-		</property>
-		<property name="friEnd" type="timestamp">
-			<column name="friEnd" length="23" />
-		</property>
-		<property name="satStart" type="timestamp">
-			<column name="satStart" length="23" />
-		</property>
-		<property name="satEnd" type="timestamp">
-			<column name="satEnd" length="23" />
-		</property>
-		<property name="sunStart" type="timestamp">
-			<column name="sunStart" length="23" />
-		</property>
-		<property name="sunEnd" type="timestamp">
-			<column name="sunEnd" length="23" />
-		</property>
-	</class>
+    <class name="model.RentalTime" table="RentalTime">
+        <id name="storeId" type="int">
+            <column name="storeId" />
+            <generator class="foreign">
+                <param name="property">storeInformation</param>
+            </generator>
+        </id>
+        <one-to-one name="storeInformation" class="model.StoreInformation" constrained="true"></one-to-one>
+        <property name="monStart" type="timestamp">
+            <column name="monStart" length="23" />
+        </property>
+        <property name="monEnd" type="timestamp">
+            <column name="monEnd" length="23" />
+        </property>
+        <property name="tueStart" type="timestamp">
+            <column name="tueStart" length="23" />
+        </property>
+        <property name="tueEnd" type="timestamp">
+            <column name="tueEnd" length="23" />
+        </property>
+        <property name="wedStart" type="timestamp">
+            <column name="wedStart" length="23" />
+        </property>
+        <property name="wedEnd" type="timestamp">
+            <column name="wedEnd" length="23" />
+        </property>
+        <property name="thuStart" type="timestamp">
+            <column name="thuStart" length="23" />
+        </property>
+        <property name="thuEnd" type="timestamp">
+            <column name="thuEnd" length="23" />
+        </property>
+        <property name="friStart" type="timestamp">
+            <column name="friStart" length="23" />
+        </property>
+        <property name="friEnd" type="timestamp">
+            <column name="friEnd" length="23" />
+        </property>
+        <property name="satStart" type="timestamp">
+            <column name="satStart" length="23" />
+        </property>
+        <property name="satEnd" type="timestamp">
+            <column name="satEnd" length="23" />
+        </property>
+        <property name="sunStart" type="timestamp">
+            <column name="sunStart" length="23" />
+        </property>
+        <property name="sunEnd" type="timestamp">
+            <column name="sunEnd" length="23" />
+        </property>
+    </class>
 </hibernate-mapping>

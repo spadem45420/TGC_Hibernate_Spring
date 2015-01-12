@@ -1,73 +1,243 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xmlns:aop="http://www.springframework.org/schema/aop"
-xmlns:tx="http://www.springframework.org/schema/tx"
-xsi:schemaLocation="
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
 http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 http://www.springframework.org/schema/tx
 http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
 http://www.springframework.org/schema/aop
 http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
-  
-    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName" value="java:/comp/env/jdbc/TestDB" />
 	</bean>
-    
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean" destroy-method="destroy"> 
-        <property name="dataSource" ref="dataSource"/> 
-        <property name="mappingResources"> 
-            <list> 
-                <value>com/emp/model/emp2.hbm.xml</value> 
-                <value>com/dept/model/dept2.hbm.xml</value> 
-            </list> 
-        </property> 
-        <property name="hibernateProperties"> 
-            <props> 
-                <prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop> 
-                <prop key="hibernate.show_sql">true</prop>
-                <prop key="hibernate.cache.provider_class">org.hibernate.cache.NoCacheProvider</prop>
-                <prop key="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</prop>
-                <prop key="hibernate.current_session_context_class">thread</prop>
-            </props> 
-        </property> 
-    </bean> 
 
-    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
-        <property name="sessionFactory" ref="sessionFactory"/> 
-    </bean>    
-         
-    <bean id="empDAO" class="com.emp.model.EmpHibernateDAO">
-        <property name="hibernateTemplate" ref="hibernateTemplate"/> 
-    </bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"
+		destroy-method="destroy">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mappingResources">
+			<list>
+				<value>model/Administrator.hbm.xml</value>
+				<value>model/BoardGameKind.hbm.xml</value>
+				<value>model/BoardGames.hbm.xml</value>
+				<value>model/BoardGamesImage.hbm.xml</value>
+				<value>model/GroupChoiceGames.hbm.xml</value>
+				<value>model/GroupRoom.hbm.xml</value>
+				<value>model/GroupRoomInfo.hbm.xml</value>
+				<value>model/GroupRoomMessage.hbm.xml</value>
+				<value>model/JoinerInfo.hbm.xml</value>
+				<value>model/Member.hbm.xml</value>
+				<value>model/MemberFavoredType.hbm.xml</value>
+				<value>model/RentalTime.hbm.xml</value>
+				<value>model/StoreInformation.hbm.xml</value>
+				<value>model/StoreInformationImage.hbm.xml</value>
+				<value>model/StoreMember.hbm.xml</value>
+				<value>model/StoreScore.hbm.xml</value>
+				<value>model/TabuUsernameTable.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.NoCacheProvider</prop>
+				<prop key="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory
+				</prop>
+				<prop key="hibernate.current_session_context_class">thread</prop>
+			</props>
+		</property>
+	</bean>
 
-    <bean id="deptDAO" class="com.dept.model.DeptHibernateDAO">
-        <property name="hibernateTemplate" ref="hibernateTemplate"/> 
-    </bean>
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 
-    <bean id="transactionManager"
-        class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactory" />
-    </bean>
+	<bean id="AdministratorDAO" class="model.dao.AdministratorDAOHibernate">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
 
-    <tx:advice id="txAdvice" transaction-manager="transactionManager">
-        <tx:attributes>
-            <tx:method name="insert" propagation="REQUIRED"/>
-            <tx:method name="update" propagation="REQUIRED"/>
-            <tx:method name="delete" propagation="REQUIRED"/>
-            <tx:method name="findByPrimaryKey" read-only="true"/>
-            <tx:method name="getAll" read-only="true"/>
-       </tx:attributes>
-    </tx:advice>
-  
-    <aop:config>
-        <aop:pointcut id="empDAOPointcut" expression="execution(* com.emp.model.EmpDAO_interface.*(..))"/>
-        <aop:advisor advice-ref="txAdvice" pointcut-ref="empDAOPointcut"/>
-    </aop:config>
-    
-    <aop:config>
-        <aop:pointcut id="deptDAOPointcut" expression="execution(* com.dept.model.DeptDAO_interface.*(..))"/>
-        <aop:advisor advice-ref="txAdvice" pointcut-ref="deptDAOPointcut"/>
-    </aop:config>
+	<bean id="BoardGameKindDAO" class="model.dao.BoardGameKindDAOHibernate">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+
+	<bean id="BoardGamesDAO" class="model.dao.BoardGamesDAOHibernate">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+
+	<bean id="BoardGames_ImageDAO" class="model.dao.BoardGames_ImageDAOHibernate">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+
+	<bean id="GroupChoiceGamesDAO" class="model.dao.GroupChoiceGamesDAOHibernate">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+
+	<bean id="GroupRoomDAO" class="model.dao.GroupRoomDAOHibernate">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+
+	<bean id="GroupRoom_InfoDAO" class="model.dao.GroupRoom_InfoDAOHibernate">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+
+	<bean id="GroupRoom_MessageDAO" class="model.dao.GroupRoom_MessageDAOHibernate">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+
+	<bean id="Joiner_InfoDAO" class="model.dao.Joiner_InfoDAOHibernate">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+
+	<bean id="MemberDAO" class="model.dao.MemberDAOHibernate">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+
+	<bean id="Member_FavoredTypeDAO" class="model.dao.Member_FavoredTypeDAOHibernate">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+
+	<bean id="RentalTimeDAO" class="model.dao.RentalTimeDAOHibernate">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+
+	<bean id="StoreInformationDAO" class="model.dao.StoreInformationDAOHibernate">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+
+	<bean id="StoreInformation_ImageDAO" class="model.dao.StoreInformation_ImageDAOHibernate">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+
+	<bean id="StoreMemberDAO" class="model.dao.StoreMemberDAOHibernate">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+
+	<bean id="StoreScoreDAO" class="model.dao.StoreScoreDAOHibernate">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+
+	<bean id="TabuUsernameTableDAO" class="model.dao.TabuUsernameTableDAOHibernate">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="insert" propagation="REQUIRED" />
+			<tx:method name="update" propagation="REQUIRED" />
+			<tx:method name="delete" propagation="REQUIRED" />
+			<tx:method name="findByPrimaryKey" read-only="true" />
+			<tx:method name="getAll" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+		<aop:pointcut id="AdministratorDAOPointcut"
+			expression="execution(* model.Interface.AdministratorDAO_Interface.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="AdministratorDAOPointcut" />
+	</aop:config>
+
+	<aop:config>
+		<aop:pointcut id="BoardGameKindDAOPointcut"
+			expression="execution(* model.Interface.BoardGameKindDAO_Interface.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="BoardGameKindDAOPointcut" />
+	</aop:config>
+
+	<aop:config>
+		<aop:pointcut id="BoardGamesDAOPointcut"
+			expression="execution(* model.Interface.BoardGamesDAO_Interface.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="BoardGamesDAOPointcut" />
+	</aop:config>
+
+	<aop:config>
+		<aop:pointcut id="BoardGames_ImageDAOPointcut"
+			expression="execution(* model.Interface.BoardGames_ImageDAO_Interface.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="BoardGames_ImageDAOPointcut" />
+	</aop:config>
+
+	<aop:config>
+		<aop:pointcut id="GroupChoiceGamesDAOPointcut"
+			expression="execution(* model.Interface.GroupChoiceGamesDAO_Interface.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="GroupChoiceGamesDAOPointcut" />
+	</aop:config>
+
+	<aop:config>
+		<aop:pointcut id="GroupRoomDAOPointcut"
+			expression="execution(* model.Interface.GroupRoomDAO_Interface.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="GroupRoomDAOPointcut" />
+	</aop:config>
+
+	<aop:config>
+		<aop:pointcut id="GroupRoom_InfoDAOPointcut"
+			expression="execution(* model.Interface.GroupRoom_InfoDAO_Interface.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="GroupRoom_InfoDAOPointcut" />
+	</aop:config>
+
+	<aop:config>
+		<aop:pointcut id="GroupRoom_MessageDAOPointcut"
+			expression="execution(* model.Interface.GroupRoom_MessageDAO_Interface.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="GroupRoom_MessageDAOPointcut" />
+	</aop:config>
+
+	<aop:config>
+		<aop:pointcut id="Joiner_InfoDAOPointcut"
+			expression="execution(* model.Interface.Joiner_InfoDAO_Interface.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="Joiner_InfoDAOPointcut" />
+	</aop:config>
+
+	<aop:config>
+		<aop:pointcut id="MemberDAOPointcut"
+			expression="execution(* model.Interface.MemberDAO_Interface.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="MemberDAOPointcut" />
+	</aop:config>
+
+	<aop:config>
+		<aop:pointcut id="Member_FavoredTypeDAOPointcut"
+			expression="execution(* model.Interface.Member_FavoredTypeDAO_Interface.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="Member_FavoredTypeDAOPointcut" />
+	</aop:config>
+
+	<aop:config>
+		<aop:pointcut id="RentalTimeDAOPointcut"
+			expression="execution(* model.Interface.RentalTimeDAO_Interface.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="RentalTimeDAOPointcut" />
+	</aop:config>
+
+	<aop:config>
+		<aop:pointcut id="StoreInformationDAOPointcut"
+			expression="execution(* model.Interface.StoreInformationDAO_Interface.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="StoreInformationDAOPointcut" />
+	</aop:config>
+
+	<aop:config>
+		<aop:pointcut id="StoreInformation_ImageDAOPointcut"
+			expression="execution(* model.Interface.StoreInformation_ImageDAO_Interface.*(..))" />
+		<aop:advisor advice-ref="txAdvice"
+			pointcut-ref="StoreInformation_ImageDAOPointcut" />
+	</aop:config>
+
+	<aop:config>
+		<aop:pointcut id="StoreMemberDAOPointcut"
+			expression="execution(* model.Interface.StoreMemberDAO_Interface.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="StoreMemberDAOPointcut" />
+	</aop:config>
+
+	<aop:config>
+		<aop:pointcut id="StoreScoreDAOPointcut"
+			expression="execution(* model.Interface.StoreScoreDAO_Interface.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="StoreScoreDAOPointcut" />
+	</aop:config>
+
+	<aop:config>
+		<aop:pointcut id="TabuUsernameTableDAOPointcut"
+			expression="execution(* model.Interface.TabuUsernameTableDAO_Interface.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="TabuUsernameTableDAOPointcut" />
+	</aop:config>
 </beans>

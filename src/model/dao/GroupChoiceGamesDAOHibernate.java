@@ -3,7 +3,7 @@ package model.dao;
 import java.util.List;
 
 import model.GroupChoiceGames;
-import model.GroupChoiceGamesDAO_Interface;
+import model.Interface.GroupChoiceGamesDAO_Interface;
 
 import org.springframework.orm.hibernate3.HibernateTemplate;
 

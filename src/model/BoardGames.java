@@ -1,6 +1,6 @@
 package model;
 
-// Generated 2015/1/6 �U�� 07:36:07 by Hibernate Tools 3.4.0.CR1
+// Generated 2015/1/12 �U�� 12:51:08 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,7 +11,7 @@ import java.util.Set;
 public class BoardGames implements java.io.Serializable {
 
 	private int boardGamesId;
-	private StoreMember storeMember;
+	private StoreInformation storeInformation;
 	private BoardGameKind boardGameKind;
 	private String storeName;
 	private String boardGameEnglishName;
@@ -26,17 +26,18 @@ public class BoardGames implements java.io.Serializable {
 	public BoardGames() {
 	}
 
-	public BoardGames(int boardGamesId) {
+	public BoardGames(int boardGamesId, StoreInformation storeInformation) {
 		this.boardGamesId = boardGamesId;
+		this.storeInformation = storeInformation;
 	}
 
-	public BoardGames(int boardGamesId, StoreMember storeMember,
+	public BoardGames(int boardGamesId, StoreInformation storeInformation,
 			BoardGameKind boardGameKind, String storeName,
 			String boardGameEnglishName, String boardGameName,
 			String boardGameNumber, String imgFileName, byte[] boardGameImage,
 			String boardGameExplan, Set<BoardGames_Image> boardGamesImages) {
 		this.boardGamesId = boardGamesId;
-		this.storeMember = storeMember;
+		this.storeInformation = storeInformation;
 		this.boardGameKind = boardGameKind;
 		this.storeName = storeName;
 		this.boardGameEnglishName = boardGameEnglishName;
@@ -56,12 +57,12 @@ public class BoardGames implements java.io.Serializable {
 		this.boardGamesId = boardGamesId;
 	}
 
-	public StoreMember getStoreMember() {
-		return this.storeMember;
+	public StoreInformation getStoreInformation() {
+		return this.storeInformation;
 	}
 
-	public void setStoreMember(StoreMember storeMember) {
-		this.storeMember = storeMember;
+	public void setStoreInformation(StoreInformation storeInformation) {
+		this.storeInformation = storeInformation;
 	}
 
 	public BoardGameKind getBoardGameKind() {

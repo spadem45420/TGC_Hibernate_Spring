@@ -2,11 +2,11 @@ package model.dao;
 
 import java.util.List;
 
-import model.BoardGameKindDAO_Interface;
 import model.RentalTime;
-import model.RentalTimeDAO_Interface;
 import model.StoreInformation;
-import model.StoreInformationDAO_Interface;
+import model.Interface.BoardGameKindDAO_Interface;
+import model.Interface.RentalTimeDAO_Interface;
+import model.Interface.StoreInformationDAO_Interface;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

@@ -1,6 +1,6 @@
 package model;
 
-// Generated 2015/1/6 �W�� 11:59:56 by Hibernate Tools 3.4.0.CR1
+// Generated 2015/1/12 �U�� 12:51:08 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -20,7 +20,6 @@ public class StoreMember implements java.io.Serializable {
 	private byte[] storeImage;
 	private String storeEmail;
 	private String storeWebsite;
-	private Set<BoardGames> boardGameses = new HashSet<BoardGames>(0);
 	private Set<StoreInformation> storeInformations = new HashSet<StoreInformation>(
 			0);
 	private Set<GroupRoom> groupRooms = new HashSet<GroupRoom>(0);
@@ -35,8 +34,8 @@ public class StoreMember implements java.io.Serializable {
 	public StoreMember(int storeMemberId, String storeUsername,
 			byte[] storePswd, Date storeJoinDate, String storePhone,
 			String imgFileName, byte[] storeImage, String storeEmail,
-			String storeWebsite, Set<BoardGames> boardGameses,
-			Set<StoreInformation> storeInformations, Set<GroupRoom> groupRooms) {
+			String storeWebsite, Set<StoreInformation> storeInformations,
+			Set<GroupRoom> groupRooms) {
 		this.storeMemberId = storeMemberId;
 		this.storeUsername = storeUsername;
 		this.storePswd = storePswd;
@@ -46,7 +45,6 @@ public class StoreMember implements java.io.Serializable {
 		this.storeImage = storeImage;
 		this.storeEmail = storeEmail;
 		this.storeWebsite = storeWebsite;
-		this.boardGameses = boardGameses;
 		this.storeInformations = storeInformations;
 		this.groupRooms = groupRooms;
 	}
@@ -121,14 +119,6 @@ public class StoreMember implements java.io.Serializable {
 
 	public void setStoreWebsite(String storeWebsite) {
 		this.storeWebsite = storeWebsite;
-	}
-
-	public Set<BoardGames> getBoardGameses() {
-		return this.boardGameses;
-	}
-
-	public void setBoardGameses(Set<BoardGames> boardGameses) {
-		this.boardGameses = boardGameses;
 	}
 
 	public Set<StoreInformation> getStoreInformations() {

@@ -8,7 +8,7 @@ import java.io.InputStream;
 import java.util.List;
 
 import model.Administrator;
-import model.AdministratorDAO_Interface;
+import model.Interface.AdministratorDAO_Interface;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

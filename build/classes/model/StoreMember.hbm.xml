@@ -1,58 +1,48 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2015/1/6 ?W?? 11:59:56 by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated 2015/1/12 ?U?? 12:51:08 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-	<class name="model.StoreMember" table="StoreMember" schema="dbo"
-		catalog="TGC">
-		<id name="storeMemberId" type="int">
-			<column name="storeMemberId" />
-			<generator class="identity" />
-		</id>
-		<property name="storeUsername" type="string">
-			<column name="storeUsername" length="50" />
-		</property>
-		<property name="storePswd" type="binary">
-			<column name="storePswd" />
-		</property>
-		<property name="storeJoinDate" type="timestamp">
-			<column name="storeJoinDate" length="23" />
-		</property>
-		<property name="storePhone" type="string">
-			<column name="storePhone" length="50" />
-		</property>
-		<property name="imgFileName" type="string">
-			<column name="imgFileName" length="50" />
-		</property>
-		<property name="storeImage" type="binary">
-			<column name="storeImage" />
-		</property>
-		<property name="storeEmail" type="string">
-			<column name="storeEmail" length="50" />
-		</property>
-		<property name="storeWebsite" type="string">
-			<column name="storeWebsite" length="100" />
-		</property>
-		<set name="boardGameses" table="BoardGames" inverse="true" lazy="false"
-			fetch="select">
-			<key>
-				<column name="storeMemberId" />
-			</key>
-			<one-to-many class="model.BoardGames" />
-		</set>
-		<set name="storeInformations" table="StoreInformation" inverse="true"
-			lazy="false" fetch="select">
-			<key>
-				<column name="storeMemberId" not-null="true" />
-			</key>
-			<one-to-many class="model.StoreInformation" />
-		</set>
-		<set name="groupRooms" table="GroupRoom" inverse="true" lazy="false"
-			fetch="select">
-			<key>
-				<column name="storeMemberId" />
-			</key>
-			<one-to-many class="model.GroupRoom" />
-		</set>
-	</class>
+    <class name="model.StoreMember" table="StoreMember">
+        <id name="storeMemberId" type="int">
+            <column name="storeMemberId" />
+            <generator class="identity" />
+        </id>
+        <property name="storeUsername" type="string">
+            <column name="storeUsername" length="50" />
+        </property>
+        <property name="storePswd" type="binary">
+            <column name="storePswd" />
+        </property>
+        <property name="storeJoinDate" type="timestamp">
+            <column name="storeJoinDate" length="23" />
+        </property>
+        <property name="storePhone" type="string">
+            <column name="storePhone" length="50" />
+        </property>
+        <property name="imgFileName" type="string">
+            <column name="imgFileName" length="50" />
+        </property>
+        <property name="storeImage" type="binary">
+            <column name="storeImage" />
+        </property>
+        <property name="storeEmail" type="string">
+            <column name="storeEmail" length="50" />
+        </property>
+        <property name="storeWebsite" type="string">
+            <column name="storeWebsite" length="100" />
+        </property>
+        <set name="storeInformations" table="StoreInformation" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="storeMemberId" not-null="true" />
+            </key>
+            <one-to-many class="model.StoreInformation" />
+        </set>
+        <set name="groupRooms" table="GroupRoom" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="storeMemberId" not-null="true" />
+            </key>
+            <one-to-many class="model.GroupRoom" />
+        </set>
+    </class>
 </hibernate-mapping>

@@ -9,13 +9,13 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Set;
 
-import model.AdministratorDAO_Interface;
 import model.GroupRoom;
 import model.Member;
-import model.MemberDAO_Interface;
 import model.Member_FavoredType;
 import model.StoreScore;
 import model.TabuUsernameTable;
+import model.Interface.AdministratorDAO_Interface;
+import model.Interface.MemberDAO_Interface;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -32,6 +32,32 @@ public class MemberDAOHibernate implements MemberDAO_Interface {
 	public Member findByPrimeKey(Integer memberId) {
 		Member member = (Member) hibernateTemplate.get(Member.class, memberId);
 		return member;
+	}
+
+	private static final String GET_BY_EMAIL = "from Member where email = ?";
+
+	@Override
+	public List<Member> findByEmail(String email) {
+		List<Member> list = hibernateTemplate.find(GET_BY_EMAIL,email);
+		return list;
+	}
+
+	@Override
+	public List<Member> findByUsername(String username) {
+		Member member = new Member();
+		member.setUsername(username);
+		List<Member> list = hibernateTemplate.findByExample(member);
+		return list;
+	}
+
+	private static final String GET_BY_UNKNOWN = "from Member where username like ? or nickname like ? order by memberId";
+
+	@Override
+	public List<Member> findByUnknown(String unknown) {
+		String[] unknownQuery = { "%" + unknown + "%", "%" + unknown + "%" };
+		List<Member> list = hibernateTemplate
+				.find(GET_BY_UNKNOWN, unknownQuery);
+		return list;
 	}
 
 	private static final String GET_ALL_STMT = "from Member order by memberId";
@@ -67,7 +93,7 @@ public class MemberDAOHibernate implements MemberDAO_Interface {
 				.getBean("MemberDAO");
 		// 新增
 		Member bean1 = new Member();
-		bean1.setUsername("pewdiepie10");
+		bean1.setUsername("pewdiepie");
 		bean1.setPswd("Aa@pdp".getBytes());
 		bean1.setEmail("pewdiepie@gmail.com");
 		bean1.setLastname("皮");
@@ -100,7 +126,7 @@ public class MemberDAOHibernate implements MemberDAO_Interface {
 		dao.insert(bean1);
 
 		Member bean2 = new Member();
-		bean2.setUsername("opchannel10");
+		bean2.setUsername("opchannel");
 		bean2.setPswd("Bb@op".getBytes());
 		bean2.setEmail("opchannel@gmail.com");
 		bean2.setLastname("皮");
@@ -156,16 +182,20 @@ public class MemberDAOHibernate implements MemberDAO_Interface {
 		// System.out.println(b1.getUsername());
 		// Set<Member_FavoredType> mft = b1.getMemberFavoredTypes();
 		// for (Member_FavoredType vo : mft) {
-		// // System.out.println(vo.getMemberFavoredId());
+		// System.out.println(vo.getMemberFavoredId());
 		// System.out.println(vo.getFavoredType());
 		// }
+		// List<Member> b2 = dao.findByUsername("pewdiepie");
+		// for (Member vo : b2) {
+		// System.out.println(vo.getUsername());
+		// }
 		// 查詢多筆
-//		List<Member> beans = dao.getAll();
-//		for (Member vo : beans) {
-//			System.out.println(vo.getMemberId());
-//			System.out.println(vo.getUsername());
-//			System.out.println(vo.getNickname());
-//		}
+		List<Member> beans = dao.getAll();
+		for (Member vo : beans) {
+			System.out.println(vo.getMemberId());
+			System.out.println(vo.getUsername());
+			System.out.println(vo.getNickname());
+		}
 	}
 
 	@Override

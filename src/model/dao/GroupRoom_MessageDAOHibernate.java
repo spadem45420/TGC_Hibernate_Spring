@@ -3,7 +3,7 @@ package model.dao;
 import java.util.List;
 
 import model.GroupRoom_Message;
-import model.GroupRoom_MessageDAO_Interface;
+import model.Interface.GroupRoom_MessageDAO_Interface;
 
 import org.springframework.orm.hibernate3.HibernateTemplate;
 

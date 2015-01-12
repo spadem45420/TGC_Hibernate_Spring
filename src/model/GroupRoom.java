@@ -1,6 +1,6 @@
 package model;
 
-// Generated 2015/1/6 �W�� 11:59:56 by Hibernate Tools 3.4.0.CR1
+// Generated 2015/1/12 �U�� 12:51:08 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -37,15 +37,31 @@ public class GroupRoom implements java.io.Serializable {
 	public GroupRoom() {
 	}
 
-	public GroupRoom(int groupSerialNumber) {
+	public GroupRoom(int groupSerialNumber, StoreMember storeMember,
+			Member member, String storeName, Date groupStartTime,
+			Date groupEndTime, String groupRoomName, String groupSuggestNumber,
+			Integer groupLowerLimit, Integer groupUpperLimit, Date groupGameTime,
+			Date reserveGroupStartTime, Date reserveGroupEndTime, Integer roomState) {
 		this.groupSerialNumber = groupSerialNumber;
+		this.storeMember = storeMember;
+		this.member = member;
+		this.storeName = storeName;
+		this.groupStartTime = groupStartTime;
+		this.groupEndTime = groupEndTime;
+		this.groupRoomName = groupRoomName;
+		this.groupSuggestNumber = groupSuggestNumber;
+		this.groupLowerLimit = groupLowerLimit;
+		this.groupUpperLimit = groupUpperLimit;
+		this.groupGameTime = groupGameTime;
+		this.reserveGroupStartTime = reserveGroupStartTime;
+		this.reserveGroupEndTime = reserveGroupEndTime;
+		this.roomState = roomState;
 	}
 
 	public GroupRoom(int groupSerialNumber, StoreMember storeMember,
 			Member member, String storeName, Date groupStartTime,
-			Date groupEndTime, String groupRoomName,
-			String groupSuggestNumber, Integer groupLowerLimit,
-			Integer groupUpperLimit, Date groupGameTime,
+			Date groupEndTime, String groupRoomName, String groupSuggestNumber,
+			Integer groupLowerLimit, Integer groupUpperLimit, Date groupGameTime,
 			Date reserveGroupStartTime, Date reserveGroupEndTime,
 			Integer roomState, String imgFileName, byte[] privateGroupImage,
 			Set<GroupRoom_Info> groupRoomInfos, Set<Joiner_Info> joinerInfos,

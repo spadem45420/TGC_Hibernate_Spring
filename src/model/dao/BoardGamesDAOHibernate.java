@@ -9,15 +9,15 @@ import java.util.List;
 import java.util.Set;
 
 import model.BoardGameKind;
-import model.BoardGameKindDAO_Interface;
 import model.BoardGames;
-import model.BoardGamesDAO_Interface;
 import model.BoardGames_Image;
-import model.RentalTimeDAO_Interface;
 import model.StoreInformation;
-import model.StoreInformationDAO_Interface;
 import model.StoreMember;
-import model.StoreMemberDAO_Interface;
+import model.Interface.BoardGameKindDAO_Interface;
+import model.Interface.BoardGamesDAO_Interface;
+import model.Interface.RentalTimeDAO_Interface;
+import model.Interface.StoreInformationDAO_Interface;
+import model.Interface.StoreMemberDAO_Interface;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -70,13 +70,10 @@ public class BoardGamesDAOHibernate implements BoardGamesDAO_Interface {
 				.getBean("BoardGamesDAO");
 		// 新增
 		BoardGames bean1 = new BoardGames();
-		StoreMemberDAO_Interface smdao = (StoreMemberDAO_Interface) context
-				.getBean("StoreMemberDAO");
-		StoreMember smbean1 = smdao.findByPrimeKey(1);
-		bean1.setStoreMember(smbean1);
 		StoreInformationDAO_Interface sidao = (StoreInformationDAO_Interface) context
 				.getBean("StoreInformationDAO");
 		StoreInformation sibean1 = sidao.findByPrimeKey(1);
+		bean1.setStoreInformation(sibean1);
 		bean1.setStoreName(sibean1.getStoreName());
 		bean1.setBoardGameEnglishName("Bang!");
 		bean1.setBoardGameName("西部無間");
@@ -107,9 +104,6 @@ public class BoardGamesDAOHibernate implements BoardGamesDAO_Interface {
 		dao.insert(bean1);
 		// 修改
 		// BoardGames bean2 = new BoardGames();
-		// StoreMemberDAO_Interface smdao1 = new StoreMemberDAOHibernate();
-		// StoreMember smbean2 = smdao1.findByPrimeKey(1);
-		// bean2.setStoreMember(smbean2);
 		// StoreInformationDAO_Interface sidao1 = new
 		// StoreInformationDAOHibernate();
 		// StoreInformation sibean2 = sidao1.findByPrimeKey(1);

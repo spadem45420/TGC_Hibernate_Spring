@@ -1,6 +1,6 @@
 package model;
 
-// Generated 2015/1/6 �W�� 11:59:56 by Hibernate Tools 3.4.0.CR1
+// Generated 2015/1/12 �U�� 12:51:08 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,8 +21,9 @@ public class StoreInformation implements java.io.Serializable {
 	private Integer groupUpperLimit;
 	private Set<StoreInformation_Image> storeInformationImages = new HashSet<StoreInformation_Image>(
 			0);
-	private StoreScore storeScore;
+	private Set<StoreScore> storeScores = new HashSet<StoreScore>(0);
 	private RentalTime rentalTime;
+	private Set<BoardGames> boardGameses = new HashSet<BoardGames>(0);
 
 	public StoreInformation() {
 	}
@@ -37,7 +38,8 @@ public class StoreInformation implements java.io.Serializable {
 			byte[] storeImage, String storeTel, Double rentAreaCost,
 			Integer groupUpperLimit,
 			Set<StoreInformation_Image> storeInformationImages,
-			StoreScore storeScore, RentalTime rentalTime) {
+			Set<StoreScore> storeScores, RentalTime rentalTime,
+			Set<BoardGames> boardGameses) {
 		this.storeId = storeId;
 		this.storeMember = storeMember;
 		this.storeName = storeName;
@@ -48,8 +50,9 @@ public class StoreInformation implements java.io.Serializable {
 		this.rentAreaCost = rentAreaCost;
 		this.groupUpperLimit = groupUpperLimit;
 		this.storeInformationImages = storeInformationImages;
-		this.storeScore = storeScore;
+		this.storeScores = storeScores;
 		this.rentalTime = rentalTime;
+		this.boardGameses = boardGameses;
 	}
 
 	public int getStoreId() {
@@ -133,12 +136,12 @@ public class StoreInformation implements java.io.Serializable {
 		this.storeInformationImages = storeInformationImages;
 	}
 
-	public StoreScore getStoreScore() {
-		return this.storeScore;
+	public Set<StoreScore> getStoreScores() {
+		return this.storeScores;
 	}
 
-	public void setStoreScore(StoreScore storeScore) {
-		this.storeScore = storeScore;
+	public void setStoreScores(Set<StoreScore> storeScores) {
+		this.storeScores = storeScores;
 	}
 
 	public RentalTime getRentalTime() {
@@ -147,6 +150,14 @@ public class StoreInformation implements java.io.Serializable {
 
 	public void setRentalTime(RentalTime rentalTime) {
 		this.rentalTime = rentalTime;
+	}
+
+	public Set<BoardGames> getBoardGameses() {
+		return this.boardGameses;
+	}
+
+	public void setBoardGameses(Set<BoardGames> boardGameses) {
+		this.boardGameses = boardGameses;
 	}
 
 }

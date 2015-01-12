@@ -3,9 +3,9 @@ package model.dao;
 import java.util.List;
 
 import model.Member;
-import model.MemberDAO_Interface;
 import model.Member_FavoredType;
-import model.Member_FavoredTypeDAO_Interface;
+import model.Interface.MemberDAO_Interface;
+import model.Interface.Member_FavoredTypeDAO_Interface;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

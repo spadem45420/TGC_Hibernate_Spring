@@ -1,23 +1,21 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2015/1/6 ?U?? 07:36:07 by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated 2015/1/12 ?U?? 12:51:08 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-	<class name="model.BoardGames_Image" table="BoardGames_Image"
-		schema="dbo" catalog="TGC">
-		<id name="storeImageId" type="int">
-			<column name="storeImageId" />
-			<generator class="identity" />
-		</id>
-		<many-to-one name="boardGames" class="model.BoardGames"
-			fetch="select">
-			<column name="boardGamesId" />
-		</many-to-one>
-		<property name="imgFileName" type="string">
-			<column name="imgFileName" length="50" />
-		</property>
-		<property name="boardGameImages" type="binary">
-			<column name="boardGameImages" />
-		</property>
-	</class>
+    <class name="model.BoardGames_Image" table="BoardGames_Image">
+        <id name="storeImageId" type="int">
+            <column name="storeImageId" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="boardGames" class="model.BoardGames" fetch="select">
+            <column name="boardGamesId" />
+        </many-to-one>
+        <property name="imgFileName" type="string">
+            <column name="imgFileName" length="50" />
+        </property>
+        <property name="boardGameImages" type="binary">
+            <column name="boardGameImages" />
+        </property>
+    </class>
 </hibernate-mapping>

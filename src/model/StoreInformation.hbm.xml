@@ -1,47 +1,55 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2015/1/6 ?W?? 11:59:56 by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated 2015/1/12 ?U?? 12:51:08 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-	<class name="model.StoreInformation" table="StoreInformation"
-		schema="dbo" catalog="TGC">
-		<id name="storeId" type="int">
-			<column name="storeId" />
-			<generator class="identity" />
-		</id>
-		<many-to-one name="storeMember" class="model.StoreMember"
-			fetch="select">
-			<column name="storeMemberId" not-null="true" />
-		</many-to-one>
-		<property name="storeName" type="string">
-			<column name="storeName" length="30" />
-		</property>
-		<property name="storeAddress" type="string">
-			<column name="storeAddress" length="100" />
-		</property>
-		<property name="imgFileName" type="string">
-			<column name="imgFileName" length="50" />
-		</property>
-		<property name="storeImage" type="binary">
-			<column name="storeImage" />
-		</property>
-		<property name="storeTel" type="string">
-			<column name="storeTel" length="50" />
-		</property>
-		<property name="rentAreaCost" type="java.lang.Double">
-			<column name="rentAreaCost" precision="53" scale="0" />
-		</property>
-		<property name="groupUpperLimit" type="java.lang.Integer">
-			<column name="groupUpperLimit" />
-		</property>
-		<set name="storeInformationImages" table="StoreInformation_Image"
-			inverse="true" lazy="false" fetch="select">
-			<key>
-				<column name="storeId" not-null="true" />
-			</key>
-			<one-to-many class="model.StoreInformation_Image" />
-		</set>
-		<one-to-one name="storeScore" class="model.StoreScore"></one-to-one>
-		<one-to-one name="rentalTime" class="model.RentalTime"></one-to-one>
-	</class>
+    <class name="model.StoreInformation" table="StoreInformation">
+        <id name="storeId" type="int">
+            <column name="storeId" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="storeMember" class="model.StoreMember" fetch="select">
+            <column name="storeMemberId" not-null="true" />
+        </many-to-one>
+        <property name="storeName" type="string">
+            <column name="storeName" length="30" />
+        </property>
+        <property name="storeAddress" type="string">
+            <column name="storeAddress" length="100" />
+        </property>
+        <property name="imgFileName" type="string">
+            <column name="imgFileName" length="50" />
+        </property>
+        <property name="storeImage" type="binary">
+            <column name="storeImage" />
+        </property>
+        <property name="storeTel" type="string">
+            <column name="storeTel" length="50" />
+        </property>
+        <property name="rentAreaCost" type="java.lang.Double">
+            <column name="rentAreaCost" precision="53" scale="0" />
+        </property>
+        <property name="groupUpperLimit" type="java.lang.Integer">
+            <column name="groupUpperLimit" />
+        </property>
+        <set name="storeInformationImages" table="StoreInformation_Image" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="storeId" not-null="true" />
+            </key>
+            <one-to-many class="model.StoreInformation_Image" />
+        </set>
+        <set name="storeScores" table="StoreScore" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="storeId" not-null="true" />
+            </key>
+            <one-to-many class="model.StoreScore" />
+        </set>
+        <one-to-one name="rentalTime" class="model.RentalTime"></one-to-one>
+        <set name="boardGameses" table="BoardGames" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="storeId" not-null="true" />
+            </key>
+            <one-to-many class="model.BoardGames" />
+        </set>
+    </class>
 </hibernate-mapping>
