@@ -8,6 +8,10 @@ import model.BoardGames_Image;
 
 public interface BoardGamesDAO_Interface {
 	public abstract BoardGames findByPrimeKey(Integer boardGamesId);
+	
+	public List<BoardGames> findByStoreId(Integer storeId);
+	
+	public List<BoardGames> findByRange(Integer storeId, Integer r1, Integer r2);
 
 	public abstract List<BoardGames> getAll();
 

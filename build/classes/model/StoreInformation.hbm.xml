@@ -45,7 +45,7 @@
             <one-to-many class="model.StoreScore" />
         </set>
         <one-to-one name="rentalTime" class="model.RentalTime"></one-to-one>
-        <set name="boardGameses" table="BoardGames" inverse="true" lazy="true" fetch="select">
+        <set name="boardGameses" table="BoardGames" inverse="true" lazy="false" fetch="select">
             <key>
                 <column name="storeId" not-null="true" />
             </key>

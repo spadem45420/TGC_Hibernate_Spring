@@ -24,7 +24,7 @@ public class GlobalService {
 	public static final String USERID = "sa";
 	public static final String PASSWORD = "passw0rd";
 	public static final String SYSTEM_NAME = "良心網路購物商城";
-	public static final String JNDI_DB_NAME = "java:comp/env/jdbc/BookDataSQLver";
+	public static final String JNDI_DB_NAME = "java:comp/env/jdbc/xxx";
 	public static final int IMAGE_FILENAME_LENGTH = 20;
 	public static final String DB_URL = "jdbc:sqlserver://"
 			+ GlobalService.host + ":1433;databaseName=JSPDB";

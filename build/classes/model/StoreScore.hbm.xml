@@ -11,7 +11,7 @@
         <many-to-one name="storeInformation" class="model.StoreInformation" fetch="select">
             <column name="storeId" not-null="true" />
         </many-to-one>
-        <many-to-one name="member" class="model.Member" fetch="select">
+        <many-to-one name="member" class="model.Member" fetch="select" lazy="false">
             <column name="memberId" not-null="true" />
         </many-to-one>
         <property name="storeScore" type="java.lang.Double">

@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -24,10 +25,11 @@ import model.dao.StoreMemberDAOHibernate;
 
 public class StoreMemberService {
 	
-	StoreMemberDAO_Interface dao =null;
-	StoreInformationDAO_Interface dao2 =null;
-	RentalTimeDAO_Interface dao3 =null;
-	StoreScoreDAO_Interface dao4 = null;
+	private StoreMemberDAO_Interface dao =null;
+	private StoreInformationDAO_Interface dao2 =null;
+	private RentalTimeDAO_Interface dao3 =null;
+	private StoreScoreDAO_Interface dao4 = null;
+	private BoardGamesDAO_Interface dao5 = null;
 	
 	public StoreMemberService(){
 		ApplicationContext context = new ClassPathXmlApplicationContext(
@@ -40,6 +42,8 @@ public class StoreMemberService {
 				.getBean("RentalTimeDAO");
 		dao4 = (StoreScoreDAO_Interface) context
 				.getBean("StoreScoreDAO");
+		dao5 = (BoardGamesDAO_Interface) context
+				.getBean("BoardGamesDAO");
 	}
 	
 	private static SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");//時間格式
@@ -198,8 +202,21 @@ public class StoreMemberService {
 		return false;
 	}
 	
-	public List<BoardGames> findGamesByStoreId(int storeId){
-		
+	public List<BoardGames> findGamesByStoreId(int storeId){//找尋專賣店桌遊
+		StoreInformation store = dao2.findByPrimeKey(storeId);
+		if(store != null){
+			List<BoardGames> list = dao5.findByStoreId(storeId);
+			return list;
+		}
+		return null;
+	}
+	
+	public List<BoardGames> findGamesByRange(int storeId, int r1, int r2){//找尋專賣店桌遊
+		StoreInformation store = dao2.findByPrimeKey(storeId);
+		if(store != null){
+			List<BoardGames> list = dao5.findByRange(storeId, r1, r2);
+			return list;
+		}
 		return null;
 	}
 	
@@ -308,6 +325,8 @@ public class StoreMemberService {
 				.getBean("RentalTimeDAO");
 		StoreScoreDAO_Interface dao4 = (StoreScoreDAO_Interface) context
 				.getBean("StoreScoreDAO");
+		BoardGamesDAO_Interface dao5 = (BoardGamesDAO_Interface) context
+				.getBean("BoardGamesDAO");
 		
 		StoreInformation store = new StoreInformation();//店家
 		
@@ -315,7 +334,7 @@ public class StoreMemberService {
 //		StoreMember storeMember = dao.findByPrimeKey(3);//取得要開店的店家會員
 //		store.setStoreMember(storeMember);
 ////		store.setStoreId(13);//更新店家資料
-		store.setStoreName("卡牌屋-嘉義店");
+//		store.setStoreName("卡牌屋-嘉義店");
 //		store.setStoreAddress("嘉義市開封街一段19號2樓");
 //		store.setStoreTel("(08)2311-2981");
 //		store.setRentAreaCost(110.0);
@@ -350,6 +369,29 @@ public class StoreMemberService {
 //		service.deleteStore(13);
 		
 		//查詢專賣店評分
+//		List<StoreScore> list = dao4.findByStoreId(1);
+//		for(StoreScore bean : list){
+//			System.out.println(bean.getMember().getNickname());//須調整xml lazy="false"
+//			System.out.println(bean.getStoreScore());
+//			System.out.println(bean.getStoreScoreReason());
+//		}
 		
+		//查詢專賣店桌遊
+//		List<BoardGames> list = dao5.findByStoreId(1);
+//		for(BoardGames bean : list){
+//			System.out.println(bean.getBoardGameName());
+//		}
+		
+		//查詢專賣店桌遊By range
+//		List<BoardGames> list = dao5.findByRange(1, 10, 20);
+//		for(BoardGames bean : list){
+//			System.out.println(bean.getBoardGameName());
+//		}
+		
+		//查詢專賣店
+		Set<BoardGames> games = dao2.findByPrimeKey(1).getBoardGameses();
+		for(BoardGames bean : games){
+			System.out.println(bean.getBoardGameName());
+		}
 	}
 }

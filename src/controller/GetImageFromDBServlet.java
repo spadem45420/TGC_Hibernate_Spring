@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
-@WebServlet("/controller/GetImage")
+//@WebServlet("/controller/GetImage")
 public class GetImageFromDBServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

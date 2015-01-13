@@ -36,6 +36,20 @@ public class BoardGamesDAOHibernate implements BoardGamesDAO_Interface {
 				BoardGames.class, boardGamesId);
 		return boardGames;
 	}
+	
+	private static final String GET_GAMES_BY_STOREID = "from BoardGames where storeId = ? order by boardGamesId";
+	
+	public List<BoardGames> findByStoreId(Integer storeId){
+		List<BoardGames> list = hibernateTemplate.find(GET_GAMES_BY_STOREID, storeId);
+		return list;
+	}
+	
+	private static final String GET_GAMES_FROM_RANGE = "from BoardGames where storeId = ? and boardGamesId > ? and boardGamesId < ?";
+	
+	public List<BoardGames> findByRange(Integer storeId, Integer r1, Integer r2){
+		List<BoardGames> list = hibernateTemplate.find(GET_GAMES_FROM_RANGE, storeId,r1,r2);
+		return list;
+	}
 
 	private static final String GET_ALL_STMT = "from BoardGames order by boardGamesId";
 
