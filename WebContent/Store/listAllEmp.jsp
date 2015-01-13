@@ -55,7 +55,10 @@
 <%-- 			<td><img src="${pageContext.servletContext.contextPath}/controller/GetImage?id=${BoardGames.boardGamesId}"></td> --%>
 <!-- 		</tr> -->
 		<%n++;%>
-			<td align='center' valign='middle' ${(BoardGames.boardGamesId==param.boardGamesId) ? 'bgcolor=#CCCCFF':''}><img src="${pageContext.servletContext.contextPath}/controller/GetImage?id=${BoardGames.boardGamesId}">
+			<td align='center' valign='middle' ${(BoardGames.boardGamesId==param.boardGamesId) ? 'bgcolor=#CCCCFF':''}>
+				<a href="${pageContext.servletContext.contextPath}/controller/GetImageInfo?id=${BoardGames.boardGamesId}">
+					<img src="${pageContext.servletContext.contextPath}/controller/GetImage?id=${BoardGames.boardGamesId}">
+				</a>
 			<br>
 			${BoardGames.boardGameName}
 			</td>
