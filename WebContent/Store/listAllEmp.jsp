@@ -19,7 +19,7 @@
 	StoreMemberService service = new StoreMemberService();
 // 	List<EmpVO> list = empSvc.getAll();
 // 	Set<BoardGames> list = service.findStoreById(2).getBoardGameses();
-	List<BoardGames> list = service.findGamesByStoreId(1);
+	List<BoardGames> list = service.findGamesByStoreId(2);
 	pageContext.setAttribute("list",list);
 %>
 
@@ -45,19 +45,25 @@
 	</font>
 </c:if>
 <table border='1' bordercolor='#CCCCFF' width='800'>
-	<tr>
-		<th>桌遊編號</th>
-		<th>桌遊名稱</th>
-		<th>桌遊圖片</th>
-	</tr>
+<!-- 	<tr> -->
+<!-- 		<th>桌遊圖片</th> -->
+<!-- 	</tr> -->
 	<%@ include file="pages/page1.file" %>
+	<tr><!--將修改的那一筆加入對比色而已-->
 	<c:forEach var="BoardGames" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-		<tr align='center' valign='middle' ${(BoardGames.boardGamesId==param.boardGamesId) ? 'bgcolor=#CCCCFF':''}><!--將修改的那一筆加入對比色而已-->
-			<td>${BoardGames.boardGamesId}</td>
-			<td>${BoardGames.boardGameName}</td>
-			<td><img src="${pageContext.servletContext.contextPath}/controller/GetImage?id=${BoardGames.boardGamesId}"></td>
-		</tr>
+<%-- 		<tr align='center' valign='middle' ${(BoardGames.boardGamesId==param.boardGamesId) ? 'bgcolor=#CCCCFF':''}><!--將修改的那一筆加入對比色而已--> --%>
+<%-- 			<td><img src="${pageContext.servletContext.contextPath}/controller/GetImage?id=${BoardGames.boardGamesId}"></td> --%>
+<!-- 		</tr> -->
+		<%n++;%>
+			<td align='center' valign='middle' ${(BoardGames.boardGamesId==param.boardGamesId) ? 'bgcolor=#CCCCFF':''}><img src="${pageContext.servletContext.contextPath}/controller/GetImage?id=${BoardGames.boardGamesId}">
+			<br>
+			${BoardGames.boardGameName}
+			</td>
+		<%if(n%5==0){%>
+			</tr><tr>
+		<%}%>
 	</c:forEach>
+	</tr>
 </table>
 <%@ include file="pages/page2.file" %>
 
