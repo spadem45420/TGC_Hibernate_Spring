@@ -1,6 +1,2 @@
 /controller/
-/log4j.properties
 /model/
-/model-config1-DriverManagerDataSource.xml
-/model-config2-JndiObjectFactoryBean.xml
-/sql/
