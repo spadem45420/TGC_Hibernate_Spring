@@ -220,6 +220,7 @@ public class StoreMemberService {
 		return null;
 	}
 	
+	
 	public List<StoreScore> findStoreScore(int storeId){//查詢評分By storeId
 		StoreInformation store = dao2.findByPrimeKey(storeId);//專賣店是否存在
 		if(store != null){
@@ -228,6 +229,14 @@ public class StoreMemberService {
 		}
 		return null;
 	}
+	
+	public List<BoardGames> findGamesByType(int storeId,int type){
+		List<BoardGames> list = dao5.findGamesByType(storeId, type);
+		if(list != null){
+			return list;
+		}
+		return null;
+	} 
 	
 	public static void main(String[] args) {
 		StoreMemberService service = new StoreMemberService();

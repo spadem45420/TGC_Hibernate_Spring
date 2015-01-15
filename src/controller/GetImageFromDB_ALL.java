@@ -22,10 +22,10 @@ import javax.sql.DataSource;
 import model.service.GlobalService;
 
 @WebServlet(
-		name="java_duke",
-		urlPatterns={"/controller/GetImage"}
+		name="java_duke6",
+		urlPatterns={"/controller/GetImagess"}
 		)
-public class GetImageFromDB extends HttpServlet {
+public class GetImageFromDB_ALL extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String GET_IMAGE_FROM_DB = 
 			"select imgFileName, boardGameImage from BoardGames where boardGamesId = ?";
@@ -34,13 +34,14 @@ public class GetImageFromDB extends HttpServlet {
 		Connection conn = null;
 		OutputStream os = null;
 		InputStream is = null;
-		PreparedStatement pstmt =null;
+//		String type = request.getParameter("type");
+		
 		try {
 			String id = request.getParameter("id");
 			Context context = new InitialContext();
 			DataSource ds = (DataSource) context.lookup(GlobalService.JNDI_DB_NAME);
 			conn = ds.getConnection();
-			pstmt = conn.prepareStatement(GET_IMAGE_FROM_DB);
+			PreparedStatement pstmt = conn.prepareStatement(GET_IMAGE_FROM_DB);
 			pstmt.setString(1, id);
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()){

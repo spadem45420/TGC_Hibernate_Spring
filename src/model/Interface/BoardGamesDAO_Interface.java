@@ -12,6 +12,8 @@ public interface BoardGamesDAO_Interface {
 	public List<BoardGames> findByStoreId(Integer storeId);
 	
 	public List<BoardGames> findByRange(Integer storeId, Integer r1, Integer r2);
+	
+	public List<BoardGames> findGamesByType(int storeId,int type);
 
 	public abstract List<BoardGames> getAll();
 

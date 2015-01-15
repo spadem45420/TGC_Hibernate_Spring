@@ -1,9 +1,4 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="model.service.*"%>   
-<%@ page import="java.util.*"%>
-<%test t = new test();%>
-<%String[] list = t.getXY("台北車站"); %>
-<%System.out.print(list[0]);%>
 <!DOCTYPE html>
 <html> 
 <head> 
@@ -16,16 +11,19 @@
   <div id="map" style="width: 1000px; height: 1000px;"></div>
   <script type="text/javascript">
     var locations = [
-      ['<%out.print(list[0]);%>', <%out.print(list[1]);%>, <%out.print(list[2]);%>],
-      ['Coogee Beach', -33.923036, 151.259052, 5],
-      ['Cronulla Beach', -34.028249, 151.157507, 3],
-      ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
-      ['Maroubra Beach', -33.950198, 151.259302, 1]
+      ['卡卡城-三重店', 25.0594851, 121.49462370000003,'http://www.yahoo.com.tw'],
+      ['卡卡城-東門店', 25.0334813, 121.52697379999995,7],
+      ['艾客米東門店', 25.0338199, 121.53235700000005,6],
+      ['瘋桌遊-益智遊戲專賣店(汐止店)', 25.0649195, 121.66398930000003,5],
+      ['瘋桌遊-益智遊戲專賣店(松山店)', 25.0574056, 121.56452549999995, 4],
+      ['卡牌屋-台北店', 25.046166, 121.51374599999997, 3],
+      ['卡牌屋-新竹店', 24.7976445, 120.97865980000006, 2],
+      ['艾客米忠孝復興店', 25.0418645, 121.54357619999996, 1]
     ];
 
     var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 7,
-      center: new google.maps.LatLng(23.973875, 120.982024),
+      zoom: 13,
+      center: new google.maps.LatLng(25.0248429,121.54205589999992),
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 
@@ -39,12 +37,23 @@
         map: map
       });
 
-      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+      google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
         return function() {
           infowindow.setContent(locations[i][0]);
           infowindow.open(map, marker);
         }
       })(marker, i));
+      
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+          return function() {
+        	  window.location.href = locations[i][3];
+          }
+        })(marker, i));
+      
+      
+//       google.maps.event.addListener(marker, 'click', function () {
+//       	  window.location.href = "http://www.yahoo.com.tw";
+//    	  });
     }
   </script>
 </body>

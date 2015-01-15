@@ -2,6 +2,7 @@ package model.Interface;
 
 import java.util.List;
 
+import model.BoardGames;
 import model.BoardGames_Image;
 
 public interface BoardGames_ImageDAO_Interface {
