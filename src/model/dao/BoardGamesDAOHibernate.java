@@ -45,10 +45,11 @@ public class BoardGamesDAOHibernate implements BoardGamesDAO_Interface {
 	}
 	
 
-	private static final String GET_GAMES_BY_TYPE = "select boardGameName from BoardGames where storeId = ? and boardGameSerialNumber = ?";
+	private static final String GET_GAMES_BY_TYPE = "from BoardGames where storeId = ? and boardGameSerialNumber = ?";
 	
 	public List<BoardGames> findGamesByType(int storeId,int type){
-		List<BoardGames> list = hibernateTemplate.find(GET_GAMES_BY_TYPE,storeId,type);
+		Integer[] i ={storeId,type};
+		List<BoardGames> list = hibernateTemplate.find(GET_GAMES_BY_TYPE,i);
 		return list;
 	}
 	
@@ -163,14 +164,20 @@ public class BoardGamesDAOHibernate implements BoardGamesDAO_Interface {
 		// BoardGames b1 = dao.findByPrimeKey(2);
 		// System.out.println(b1.getBoardGameExplan());
 		// 查詢多筆
-		List<BoardGames> beans = dao.getAll();
-		for (BoardGames vo : beans) {
-			System.out.println(vo.getBoardGamesId());
-			System.out.println(vo.getBoardGameEnglishName());
-			System.out.println(vo.getBoardGameName());
-			System.out.println(vo.getBoardGameNumber());
-			System.out.println(vo.getBoardGameExplan());
-		}
+//		List<BoardGames> beans = dao.getAll();
+//		for (BoardGames vo : beans) {
+//			System.out.println(vo.getBoardGamesId());
+//			System.out.println(vo.getBoardGameEnglishName());
+//			System.out.println(vo.getBoardGameName());
+//			System.out.println(vo.getBoardGameNumber());
+//			System.out.println(vo.getBoardGameExplan());
+//		}
+		
+		//找桌遊By類型
+//		List<BoardGames> list = dao.findGamesByType(1, 2);
+//		for(BoardGames vo : list){
+//			System.out.println(vo.getBoardGameName());
+//		}
 	}
 
 	@Override

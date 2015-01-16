@@ -230,12 +230,9 @@ public class StoreMemberService {
 		return null;
 	}
 	
-	public List<BoardGames> findGamesByType(int storeId,int type){
+	public List<BoardGames> findByType(int storeId,int type){//查詢某店家桌遊類型的桌遊
 		List<BoardGames> list = dao5.findGamesByType(storeId, type);
-		if(list != null){
 			return list;
-		}
-		return null;
 	} 
 	
 	public static void main(String[] args) {
@@ -398,9 +395,15 @@ public class StoreMemberService {
 //		}
 		
 		//查詢專賣店
-		Set<BoardGames> games = dao2.findByPrimeKey(1).getBoardGameses();
-		for(BoardGames bean : games){
-			System.out.println(bean.getBoardGameName());
+//		Set<BoardGames> games = dao2.findByPrimeKey(1).getBoardGameses();
+//		for(BoardGames bean : games){
+//			System.out.println(bean.getBoardGameName());
+//		}
+		
+		//查詢桌遊類型
+		List<BoardGames> list = service.findByType(1,1);
+		for(BoardGames bean : list){
+			System.out.println(bean.getBoardGameExplan());
 		}
 	}
 }

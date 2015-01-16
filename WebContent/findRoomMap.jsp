@@ -55,8 +55,8 @@
 	color: #FFFFFF;
 }
 #map-canvas {
-width: 1120px;
-height: 900px;
+width: 600px;
+height: 600px;
 margin: 20px;
 padding: 0px
       }
@@ -66,16 +66,16 @@ body,input { font-size: 9pt; }
 <script type='text/javascript'src='http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.1.js'></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 <script>
-
+var img;
 $(function () {
 	//利用canvas產生一個內含文字的圖檔
 	function createMarkerIcon(text, opt) {
 	//定義預設參數
 	var defaultOptions = {
 	fontStyle: "normal", //normal, bold, italic
-	fontName: "Arial",
-	fontSize: 12, //以Pixel為單位
-	bgColor: "darkblue",
+	fontName: "Microsoft JhengHei",
+	fontSize: 14, //以Pixel為單位
+	bgColor: "#0066FF",
 	fgColor: "white",
 	padding: 4,
 	arrowHeight: 6 //下方尖角高度
@@ -145,9 +145,7 @@ $(function () {
                 var marker = new google.maps.Marker({
                     map: map,
                     position: myLatlngs,
-                    icon: createMarkerIcon(address.workName, {
-                    	bgColor: "brown"
-                    	}),
+                    icon: createMarkerIcon(address.workName),
                     /* title: address,
                         icon: image  */
                    
@@ -165,7 +163,7 @@ $(function () {
 //         '<p>'+value.companyName+'</p>'+
 //         '<p style="color:#C29551">'+value.wrorkDetailed+'</p>'+
         '<img src="${pageContext.servletContext.contextPath}/controller/GetImages?id='+value.StoreId+'&type=STORES" width="300px">'+
-        '<p style="color:#707070">桌遊店名:'+value.StroeName+'</p>'+
+        '<p style="color:#707070" id="storeSSS">桌遊店名:'+value.StroeName+'</p>'+
         '<p style="color:#707070">開團人數:'+value.Upper+'</p>'+
         '<p style="color:#707070">開團時間:'+value.EndTime+'</p>'+
         '</div>'+
@@ -190,7 +188,9 @@ $(function () {
         
         google.maps.event.addListener(marker, 'dblclick', function() {
        	 
-        	  window.location.href = "http://www.google.com";
+//         	  window.location.href = "http://www.google.com";
+// 			  $('#bodyContent').append(123);
+			  alert($('#storeSSS').text());
       	});
         
         
@@ -212,5 +212,6 @@ $(function () {
 </head>
 <body>
 	<div id="map-canvas"></div>
+	<img src="res/bg.jpg" style="display:none" id="bg">
 </body>
 </html>

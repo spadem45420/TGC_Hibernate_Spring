@@ -926,16 +926,6 @@ li.MemInfo {
     	$('#select1').bind('click',function(){
 //     		alert($(this).val());
 // 			console.log($(this).val());
-			var i = $(this).val();
-			if(i==1){
-				<%List<BoardGames> list2 = dao2.findGamesByType(1,1);%>
-				var opt3 = window.document.createElement("option");
-				<%for(BoardGames bean : list2){%>
-				opt3.innerHTML =1;
-				<%}%>
-				$('#select2').append(opt3);
-			}
-			
     		
     	})
 	})
