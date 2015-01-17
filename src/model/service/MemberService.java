@@ -31,8 +31,6 @@ public class MemberService {
 	public MemberService() {// 建構子
 		ApplicationContext context = new ClassPathXmlApplicationContext(
 				"model-config1-DriverManagerDataSource.xml");
-		// ApplicationContext context = new ClassPathXmlApplicationContext(
-		// "model-config2-JndiObjectFactoryBean.xml");
 		mdao = (MemberDAO_Interface) context.getBean("MemberDAO");
 		mfdao = (Member_FavoredTypeDAO_Interface) context
 				.getBean("Member_FavoredTypeDAO");

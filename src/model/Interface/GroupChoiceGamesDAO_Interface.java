@@ -6,6 +6,8 @@ import model.GroupChoiceGames;
 
 public interface GroupChoiceGamesDAO_Interface {
 	public abstract GroupChoiceGames findByPrimeKey(Integer choiceGamesSerialNumber);
+	
+	public List<Integer> getTypeFromRoom(int roomId);
 
 	public abstract List<GroupChoiceGames> getAll();
 

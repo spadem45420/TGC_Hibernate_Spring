@@ -401,9 +401,9 @@ public class StoreMemberService {
 //		}
 		
 		//查詢桌遊類型
-		List<BoardGames> list = service.findByType(1,1);
-		for(BoardGames bean : list){
-			System.out.println(bean.getBoardGameExplan());
-		}
+//		List<BoardGames> list = service.findByType(1,1);
+//		for(BoardGames bean : list){
+//			System.out.println(bean.getBoardGameExplan());
+//		}
 	}
 }

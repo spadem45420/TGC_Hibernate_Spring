@@ -910,11 +910,11 @@ li.MemInfo {
 		});
 		
 		$('#CreateNewStylebutton').bind('click',function(){
-			$('#CreateNewStylebutton')
-			.after("<span>"+
-				   "<br><select><option value='volvo'>Volvo</option></select>"+
-				   "<select><option value='volvo'>Volvo</option></select>"+
+			$('#sapnType')
+			.after("<span>"+"<input type='checkbox' name='games' checked>"+$('#select2').val()+
 				   "<a href=# class='del'><input type='button' value='刪除'></a></span>");
+// 			alert($('span[name="games"]').text())
+// 			$('input[name="games"]').after(123);
 		});
 		
 		$('#gametype').on('click','.del',function(){
@@ -923,11 +923,11 @@ li.MemInfo {
     		$(this).parents('span').remove();
     	})
     	
-    	$('#select1').bind('click',function(){
+//     	$('#select1').bind('click',function(){
 //     		alert($(this).val());
 // 			console.log($(this).val());
     		
-    	})
+//     	})
 	})
 	
 // 	window.onload = function (){
@@ -938,6 +938,7 @@ li.MemInfo {
 //     	$('#select1').append(opt2);
 //     }
 </script>
+
 </head>
 <body>
 	<div id="HEADERONE"></div>
@@ -1026,17 +1027,19 @@ li.MemInfo {
 							<option value="${games.boardGameSerialNumber}">${games.boardGameStyle}</option>
 						</c:forEach>
 					</select><select id="select2">
-						<option value="volvo">Volvo</option>
-						<option value="saab">Saab</option>
-						<option value="opel">Opel</option>
-						<option value="audi">Audi</option>
+						<option value="volvo">請選擇</option>
 					</select><input type="button" id="CreateNewStylebutton" value="增加類型" />
+					<br>
+					<span id="sapnType">
+					
+					</span>
 					</div>
 					<div style="display: inline">
 					<br /> 遊玩桌遊: <br /> <input type="text" id="boardGameName"
 						name="boardGameName" value="西部無間"><input type="button"
 						id="CreateNewBoardGamebutton" value="增加類型" />
 					</div>
+					<div id="test222"></div>
 					<div style="display: inline"></div>
 					<div style="display: inline" id="div_add2" name="div_add2">2</div>
 					<br /> 桌遊團圖片: <br /> <input type="file" id="privateGroupImage"
@@ -1049,8 +1052,50 @@ li.MemInfo {
 			</div>
 		</div>
 	</div>
-
-
+<!-- 	ajax -->
+	<script> 
+        var btnLoad = document.getElementById("select1");
+        var a1 = $('#select1');
+        btnLoad.addEventListener("click",beforeload,false);
+        var xhr;
+        
+        function beforeload(){
+			if($(this).val()==a1.val()){
+				btnLoad.addEventListener("click",load,false);
+			}
+        }
+        
+        function load(){    
+//         	alert($(this).val());
+        	xhr = new XMLHttpRequest();
+        	xhr.addEventListener("readystatechange",callback,false);
+            var url = "GetGamesJson?storeId="+1+"&type="+$(this).val();     //url要改
+        	xhr.open("get",url,true); 
+        	xhr.send();
+        }
+        function callback(){
+        	if(xhr.readyState == 4){
+        		if(xhr.status == 200){
+	      		var data = xhr.responseText
+	      		var datas=JSON.parse(data);
+	      		var txtLi
+	          	var myDiv = document.getElementById("select2");
+	      		$('#select2').empty();
+	      		$('#select2').append("<option>請選擇</option>");
+	          	for(var i=0;i<datas.length;i++){
+				var txtLi = document.createTextNode(datas[i]);
+	       	  	var eleLi = document.createElement("option");
+				eleLi.appendChild(txtLi);
+				console.log(txtLi);
+	          	 	myDiv.appendChild(eleLi);	            	 
+	          	 }
+        		}else{
+        			alert(xhr.status + ":" + xhr.statusText);
+                }
+        	}
+        }
+   </script>
+<!-- ajax -->
 
 
 
